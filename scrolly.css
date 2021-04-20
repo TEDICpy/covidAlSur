@@ -18,7 +18,13 @@
             border-radius: 3px;
             z-index: 1;
             margin-bottom: 120px;
+            display: flex; flex-direction: column
         }
+
+.contenedorGrafico .grafico{
+    flex-grow: 1;
+}
+
     
 
         .scrolly article{
@@ -109,13 +115,16 @@
                 top: 18vh;
                 height: 60vh;
             }
+
         }
         
         @media only screen and (max-height: 650px) and (min-width: 768px) {
-            #contenedorGrafico.sticky, .contenedorGrafico.sticky {
+            #contenedorGrafico, .contenedorGrafico.sticky {
                 top: 12vh;
                 height: 80vh;
             }
+
+
         }
         
         

@@ -43,6 +43,28 @@
 
 
 <style>
+body{
+    font-family: sans-serif;
+}
+section {
+    max-width: 1000px;
+    margin:auto;
+}
+
+figure.contenedorGrafico {
+    padding: 10px;
+}
+
+svg .paisLabel{
+    text-anchor: middle;
+    font-family: sans-serif;
+}
+
+figure p{
+    max-width: 700px;
+    margin: auto;
+    text-align: left;
+}
 
 </style>
 
@@ -51,6 +73,9 @@
         <!-- aca va el grafico que va a quedar fijo -->
         <figure id="grafico1" class='sticky contenedorGrafico' >
             <h2>Acceso a internet y población</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+            <div class="grafico"></div>
 
         </figure>
 
@@ -62,7 +87,8 @@
         <!-- aca va el grafico que va a quedar fijo -->
         <figure id="grafico2" class='sticky contenedorGrafico' >
             <h2>Downloads y acceso a internet</h2>
-
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <div class="grafico"></div>
         </figure>
 
 	</div>
@@ -75,7 +101,7 @@
         <!-- aca va el grafico que va a quedar fijo -->
         <figure id="grafico3" class='sticky contenedorGrafico' >
             <h2>Seguridad</h2>
-
+            <div class="grafico"></div>
         </figure>
 
         <!-- acá van los textos de cada paso -->
@@ -106,7 +132,7 @@
         <!-- aca va el grafico que va a quedar fijo -->
         <figure id="grafico4" class='sticky contenedorGrafico' >
             <h2>Recolección de datos</h2>
-
+            <div class="grafico"></div>
         </figure>
 
         <!-- acá van los textos de cada paso -->
@@ -137,7 +163,7 @@
         <!-- aca va el grafico que va a quedar fijo -->
         <figure id="grafico4" class='sticky contenedorGrafico' >
             <h2>La importancia del consentimiento en los datos recogidos por las apps</h2>
-
+            <div class="grafico"></div>
         </figure>
 
         <!-- acá van los textos de cada paso -->
@@ -171,10 +197,7 @@ Promise.all([
     d3.csv("paises.csv")
 ]).then(function(files) {
    
-    var epigrafeData = files[files.length-1].filter(d=>d.id_historia=="I3");
-        epigrafeData.forEach(e => {
-            e.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(e.fecha_actualizacion)).toLowerCase(); 
-        });
+    
        
 
 
@@ -225,22 +248,22 @@ Promise.all([
 
 var altoMaximo = 1.5; // cuantas veces el ancho permitimos que sea el alto maximo
 
-var svg = d3.selectAll(".contenedorGrafico").append("svg"),
-    margin = isMobile ? {top: 25, right: 20, bottom: 15, left: 30} : {top: 60, right: 35, bottom: 25, left: 35},
+var svg = d3.selectAll(".contenedorGrafico").selectAll(".grafico").append("svg"),
+    margin = isMobile ? {top: 15, right: 15, bottom: 15, left: 15} : {top: 15, right: 15, bottom: 15, left: 15},
     widthReal =  +d3.select('#grafico1').style('width').slice(0, -2),
-    heightReal = +d3.select('#grafico1').style('height').slice(0, -2)-25;
+    heightReal = +d3.select('#grafico1').style('height').slice(0, -2);
 
 
 
-    if (heightReal > altoMaximo*widthReal) {
-        svg.style('margin-top', (heightReal - altoMaximo*widthReal)/2 + "px")
-        heightReal = altoMaximo*widthReal;
-    }
 
-    svg.attr("viewBox", [0, 0, widthReal, heightReal]);
+    svg.each(function(d){ 
+        height = heightReal - margin.top - margin.bottom;
+        width = widthReal - margin.left - margin.right;
+            d3.select(this).attr("viewBox", [0, 0, widthReal, d3.select(this)._groups[0][0].parentElement.clientHeight])
+        .attr("height", d3.select(this)._groups[0][0].parentElement.clientHeight)
+        .attr("width", d3.select(this)._groups[0][0].parentElement.clientWidth);
+    })
 
-    height = heightReal - margin.top - margin.bottom;
-    width = widthReal - margin.left - margin.right;
     
 
 ///******** MANEJO DE DATOS ********
@@ -259,29 +282,46 @@ svg.append("g")
 	;
 
     svg.each(function(d,i){
-		d3.select(this).select("g").attr("id","gInterno"+i);
+		d3.select(this).select("g").attr("id","gInterno"+i)
+        ;
 	})
 
 
 
-beeSwarm(dataPaises)
+beeSwarm(dataPaises, "#gInterno0")
 
-function beeSwarm(datos){
+function beeSwarm(datos, cualGrafico){
 
-  var svg = d3.select("#gInterno0")
-      .attr("height", height)
-      .attr("width", width)
-  
+  var main = d3.select(cualGrafico);
+        height = main._groups[0][0].parentElement.height.baseVal.value-margin.top-margin.bottom;
+        width = main._groups[0][0].parentElement.width.baseVal.value-margin.left-margin.right;
+
+ 
+
   var max_pop = d3.max(datos, d => d.Poblacion)
   
   
-  var xScale = d3.scaleLinear().domain(d3.extent(datos, d=> d.Acceso)).range([0, width]);
-  var rScale = d3.scaleSqrt().domain([0, max_pop]).range([0, 8])
+  var xScale = d3.scaleLinear().domain(d3.extent(datos, d=> d.Acceso));
+
+  var coloreaPaisesAcceso = d3.scaleQuantize()
+            .domain(d3.extent(datos, d=> d.Acceso))
+            .range(["#ff5d12", "#6b9b2a", "#069799"])
+            ;
   
-  var force = d3.forceSimulation(datos)
-        .force('forceX', d3.forceX(d => xScale(d.Acceso)).strength(2))
-        .force('forceY', d3.forceY(height/2).strength(0.1))
-        .force('collide', d3.forceCollide(d => rScale(d.Poblacion) + 0.5))
+    isMobile?xScale.range([height*0.1, height*0.9]):xScale.range([width*0.1, width*0.9]);
+  var rScale = d3.scaleSqrt().domain([0, max_pop]).range([0, height/40])
+ 
+  
+  var force = d3.forceSimulation(datos).force('forceX', d3.forceX(d => xScale(d.Acceso)).strength(2))
+        .force('forceY', d3.forceY(height/2).strength(0.1));
+
+  if(isMobile){
+      force
+        .force('forceY', d3.forceY(d => xScale(d.Acceso)).strength(2))
+        .force('forceX', d3.forceX(width/2).strength(0.1))
+  }
+        
+        force.force('collide', d3.forceCollide(d => rScale(d.Poblacion) + 0.5))
         .stop();
     
   var NUM_ITERATIONS = 120;
@@ -292,20 +332,28 @@ function beeSwarm(datos){
   
   force.stop();
   
-  svg.selectAll("circle")
+  var circlesGroup = main.selectAll("g")
     .data(datos)
-    .enter()
-      .append("circle")
-      .attr("cx", d => d.x)
-      .attr("cy", d => d.y)
+    .join("g")
+        .attr("transform", d=>"translate("+d.x+","+d.y+")");
+
+    circlesGroup.append("circle")
       .attr("r", d => rScale(d.Poblacion))
-      .style("fill", "#bdbdbd");
+      .style("fill", d=>coloreaPaisesAcceso(d.Acceso));
+      
+   circlesGroup.append("text")
+    .attr("class","paisLabel")
+      .text(d=>d.Pais)
+      .attr("dy",d=>rScale(d.Poblacion)/5)
+      .attr("font-size",d=>rScale(d.Poblacion)/2)
+      .style("fill", "black");
+
   
-  svg.append("g")
-    .call(d3.axisTop(xScale))
-    .style("transform", `translateY(${height*0.75}px`)
+  main.append("g")
+    .call(isMobile?d3.axisRight(xScale):d3.axisTop(xScale))
+    .style("transform", isMobile?`translateX(${width*0.05}px`:`translateY(${height*0.75}px`)
   
-  return svg.node();
+  return main.node();
 }
 
 
