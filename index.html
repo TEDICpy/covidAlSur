@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+
+
+      <script src="https://d3js.org/d3.v5.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.js"></script>
+      <script src="https://unpkg.com/enter-view"></script>
+      <link rel="stylesheet" href="scrolly.css">
+  
+</head>
+
+<body>
+      <script>
+      var es_ES = {
+        "decimal": ",",
+        "thousands": ".",
+        "grouping": [3],
+        "currency": ["$", ""],
+        "dateTime": "%a %b %e %X %Y",
+        "date": "%d/%m/%Y",
+        "time": "%H:%M:%S",
+        "periods": ["AM", "PM"],
+        "days": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+        "shortDays": ["Dom", "Lun", "Mar", "Mi", "Jue", "Vie", "Sab"],
+        "months": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        "shortMonths": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+    };
+
+    d3.timeFormatDefaultLocale(es_ES);
+    d3.formatDefaultLocale(es_ES);
+
+    var anchoDiv = document.getElementsByTagName("body")[0].clientWidth;
+    var isMobile = anchoDiv < 768 ? 1 : 0; 
+
+      </script>
+    
+  
+  
+      
+
+
+<style>
+
+</style>
+
+<section id='NOscrolly1'>
+    <div class='NOscrolly'>
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico1" class='sticky contenedorGrafico' >
+            <h2>Acceso a internet y población</h2>
+
+        </figure>
+
+	</div>
+</section>
+
+<section id='NOscrolly1'>
+    <div class='NOscrolly'>
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico2" class='sticky contenedorGrafico' >
+            <h2>Downloads y acceso a internet</h2>
+
+        </figure>
+
+	</div>
+</section>
+
+
+
+<section id='scrolly1'>
+    <div class='scrolly'>
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico3" class='sticky contenedorGrafico' >
+            <h2>Seguridad</h2>
+
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+			    <p>Estas son las apps mas xxx                </p>
+            </div>
+           
+            <div class='step' data-index='1'>
+			    <p>Estas son las apps mas xxx                </p>
+            </div>
+
+
+            <div class='step' data-index='2'>
+			    <p>Estas son las apps mas xxx                </p>
+            </div>
+
+        </article>
+		
+	</div>
+</section>
+
+
+
+
+<section id='scrolly2'>
+    <div class='scrolly'>
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico4" class='sticky contenedorGrafico' >
+            <h2>Recolección de datos</h2>
+
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+			    <p>Estas son las apps mas xxx                </p>
+            </div>
+           
+            <div class='step' data-index='1'>
+			    <p>Estas son las apps mas xxx                </p>
+            </div>
+
+
+            <div class='step' data-index='2'>
+			    <p>Estas son las apps mas xxx                </p>
+            </div>
+
+        </article>
+		
+	</div>
+</section>
+
+
+
+
+<section id='scrolly3'>
+    <div class='scrolly'>
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico4" class='sticky contenedorGrafico' >
+            <h2>La importancia del consentimiento en los datos recogidos por las apps</h2>
+
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+			    <p>Estas son las apps mas xxx                </p>
+            </div>
+           
+            <div class='step' data-index='1'>
+			    <p>Estas son las apps mas xxx                </p>
+            </div>
+
+
+            <div class='step' data-index='2'>
+			    <p>Estas son las apps mas xxx                </p>
+            </div>
+
+        </article>
+		
+	</div>
+</section>
+
+
+
+ <!-- Scripts -->
+ <script>
+	
+	//********************* CARGA DATOS ************
+
+Promise.all([
+    d3.csv("paises.csv")
+]).then(function(files) {
+   
+    var epigrafeData = files[files.length-1].filter(d=>d.id_historia=="I3");
+        epigrafeData.forEach(e => {
+            e.fecha = d3.timeFormat("%-d/%b/%Y")(d3.timeParse("%Y-%m-%d")(e.fecha_actualizacion)).toLowerCase(); 
+        });
+       
+
+
+    // **** CODIGO DEL SCROLLY *******
+
+
+    var container1 = d3.select('#scrolly1'); //busco el container total
+	var container2 = d3.select('#scrolly2'); //busco el container total
+    var container3 = d3.select('#scrolly3'); //busco el container total
+
+
+    var stepSel1 = container1.selectAll('.step'); // selecciono los "steps"
+	var stepSel2 = container2.selectAll('.step'); // selecciono los "steps"
+    var stepSel3 = container3.selectAll('.step'); // selecciono los "steps"
+
+
+    function updateChart(index, what,containerNumber,entra) {  // funcion que llama cada vez que cruza un umbral
+        var sel = d3.select('#scrolly'+containerNumber).select(`[data-index='${index}']`);
+        what.classed('is-active', (d, i) => i === index);
+        scrollyTelling(containerNumber,index,entra); // <<<<< AQUI LLAMA AL GRAFICO VERDADERO
+    }
+
+    function init(what,containerNumber) { // configuracion inicial
+        Stickyfill.add(d3.select('.sticky').node()); // fallback para browsers sin sticky
+
+        enterView({
+            selector: what.nodes(),
+            offset: 0.4,
+            enter: el => {
+                var index = +d3.select(el).attr('data-index');
+                updateChart(index,what,containerNumber,1);
+            },
+            exit: el => {
+                let index = +d3.select(el).attr('data-index');
+                index = Math.max(0, index - 1);
+                updateChart(index,what,containerNumber,0);
+            }
+        });
+    }
+  
+  
+
+    // **** END SCROLLY *******
+
+
+       
+        
+
+var altoMaximo = 1.5; // cuantas veces el ancho permitimos que sea el alto maximo
+
+var svg = d3.selectAll(".contenedorGrafico").append("svg"),
+    margin = isMobile ? {top: 25, right: 20, bottom: 15, left: 30} : {top: 60, right: 35, bottom: 25, left: 35},
+    widthReal =  +d3.select('#grafico1').style('width').slice(0, -2),
+    heightReal = +d3.select('#grafico1').style('height').slice(0, -2)-25;
+
+
+
+    if (heightReal > altoMaximo*widthReal) {
+        svg.style('margin-top', (heightReal - altoMaximo*widthReal)/2 + "px")
+        heightReal = altoMaximo*widthReal;
+    }
+
+    svg.attr("viewBox", [0, 0, widthReal, heightReal]);
+
+    height = heightReal - margin.top - margin.bottom;
+    width = widthReal - margin.left - margin.right;
+    
+
+///******** MANEJO DE DATOS ********
+
+ var dataPaises = files[0];
+
+
+ dataPaises.forEach(element => {
+			element.Acceso = element.Acceso.replace(",",".");
+		});
+    
+//***************ACA SE ARMAN LOS GRAFICOS
+
+svg.append("g")
+.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+	;
+
+    svg.each(function(d,i){
+		d3.select(this).select("g").attr("id","gInterno"+i);
+	})
+
+
+
+beeSwarm(dataPaises)
+
+function beeSwarm(datos){
+
+  var svg = d3.select("#gInterno0")
+      .attr("height", height)
+      .attr("width", width)
+  
+  var max_pop = d3.max(datos, d => d.Poblacion)
+  
+  
+  var xScale = d3.scaleLinear().domain(d3.extent(datos, d=> d.Acceso)).range([0, width]);
+  var rScale = d3.scaleSqrt().domain([0, max_pop]).range([0, 8])
+  
+  var force = d3.forceSimulation(datos)
+        .force('forceX', d3.forceX(d => xScale(d.Acceso)).strength(2))
+        .force('forceY', d3.forceY(height/2).strength(0.1))
+        .force('collide', d3.forceCollide(d => rScale(d.Poblacion) + 0.5))
+        .stop();
+    
+  var NUM_ITERATIONS = 120;
+  
+  for (let i = 0; i < NUM_ITERATIONS; ++i) {
+    force.tick();
+  };
+  
+  force.stop();
+  
+  svg.selectAll("circle")
+    .data(datos)
+    .enter()
+      .append("circle")
+      .attr("cx", d => d.x)
+      .attr("cy", d => d.y)
+      .attr("r", d => rScale(d.Poblacion))
+      .style("fill", "#bdbdbd");
+  
+  svg.append("g")
+    .call(d3.axisTop(xScale))
+    .style("transform", `translateY(${height*0.75}px`)
+  
+  return svg.node();
+}
+
+
+
+
+
+
+
+
+
+        init(stepSel1,1)
+	    init(stepSel2,2)
+        init(stepSel3,3)
+
+
+//***************ACA SE MODIFICAN EN CADA STEP
+        
+        
+ 
+
+function scrollyTelling(containerNumber,step,entra){
+	if(containerNumber == 1){  //GRAFICO PRIMER SCROLLY
+		switch (step) {
+			case 0: // testeos y positivos 
+              
+			break;
+      
+	    }
+
+	}else if(containerNumber == 2){
+
+        switch (step) {
+			case 0: // testeos y positivos 
+              
+			break;
+      
+	    }
+              
+    }else {
+
+        switch (step) {
+			case 0: // testeos y positivos 
+              
+			break;
+      
+	    }
+
+    }
+        
+
+}
+
+
+
+//********** funciones
+ 
+
+
+
+});
+
+</script>
+
+    
+
+  
+  
+ 
+
+  
+
+</body>
+</html>
