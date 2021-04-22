@@ -286,8 +286,7 @@ var altoMaximo = 1.5; // cuantas veces el ancho permitimos que sea el alto maxim
 d3.selectAll(".contenedorGrafico")
         .selectAll(".grafico")
         .each(function(d,i){
-            console.log(i);
-                d3.select(this).append("svg").datum(i+1)});
+                d3.select(this).append("svg").datum(d3.select(this)._groups[0][0].parentNode.id.slice(-1))});
 
 var svg = d3.selectAll("svg")
     ,
@@ -318,6 +317,13 @@ var svg = d3.selectAll("svg")
 			element.Acceso = element.Acceso.replace(",",".");
 		});
     
+        dataPenetracion.forEach(element => {
+			element.Acceso = +element.Acceso.replace(",",".");
+            element.Penetracion = element.Penetracion.replace(",",".");
+            element.Poblacion = +element.Poblacion;
+		});
+ 
+
 //***************ACA SE ARMAN LOS GRAFICOS
 
 svg
@@ -327,15 +333,14 @@ svg
 	;
 
     svg.each(function(d,i){
-        console.log(d);
-		d3.select(this).select("g").attr("id","gInterno"+d.id)
+		d3.select(this).select("g").attr("id","gInterno"+d)
         ;
 	})
 
 
 
-beeSwarmAcceso(dataPaises, "#gInterno0")
-beeSwarmPenetracion(dataPenetracion, "#gInterno1")
+beeSwarmAcceso(dataPaises, "#gInterno1")
+beeSwarmPenetracion(dataPenetracion, "#gInterno2")
 
 
 //alluvialSeguridad(dataPaises, "#gInterno0")
@@ -427,15 +432,27 @@ function beeSwarmAcceso(datos, cualGrafico){ // beeswarm
                     .attr("class",d=>d)
                     .attr(isMobile?"width":"height",isMobile?3:18);
 
+     
+            
 
             axis.selectAll("text")
                 .data(clasesAcceso.range())
                 .join("text")
                     .attr(isMobile?"y":"x", (d,i)=>(xScale(rangosAxis[i])+xScale(rangosAxis[i+1]))/2)
                     .attr("dy",isMobile?0:14)
+                    .attr("dx",isMobile?-3:0)
                     .attr("text-anchor",isMobile?"end":"middle")
                     .text(d=>d.toUpperCase());
 
+    if(!isMobile){
+    axis.append("text")
+            .attr("text-anchor",isMobile?"end":"middle")
+               .text("Acceso a internet")
+               .attr("dy",-5)
+            .attr("x",isMobile?0:width/2)
+            .style("opacity",0.7)
+            ;
+        }
         
 } // fin beeswarm
 
@@ -446,6 +463,7 @@ function beeSwarmAcceso(datos, cualGrafico){ // beeswarm
 
 function beeSwarmPenetracion(datos, cualGrafico){ // beeswarm
 
+    console.log(datos)
 var main = d3.select(cualGrafico);
         height = main._groups[0][0].parentElement.height.baseVal.value-margin.top-margin.bottom;
         width = main._groups[0][0].parentElement.width.baseVal.value-margin.left-margin.right;
@@ -461,9 +479,11 @@ var max_pop = d3.max(datos, d => d.Poblacion)
 
 var xScale = d3.scaleLinear().domain(d3.extent(datos, d=> d.Penetracion));
 
+var xScale = d3.scaleLinear().domain(d3.extent(datos, d=> d.Penetracion));
+
     isMobile?xScale.range([height*0.1, height*0.9]):xScale.range([width*0.1, width*0.9]);
 
-var rScale = d3.scaleSqrt().domain([0, max_pop]).range([0, isMobile?width/30:height/30])
+var rScale = isMobile?width/20:height/20;
 
 
 var force = d3.forceSimulation(datos).force('forceX', d3.forceX(d => xScale(d.Penetracion)).strength(2))
@@ -475,7 +495,7 @@ if(isMobile){
         .force('forceX', d3.forceX(width/1.8).strength(0.1))
 }
         
-        force.force('collide', d3.forceCollide(d => rScale(d.Poblacion) + 3))
+        force.force('collide', d3.forceCollide(rScale + 3))
         .stop();
     
 var NUM_ITERATIONS = 120;
@@ -492,24 +512,24 @@ var circlesGroup = main.selectAll("g")
         .attr("transform", d=>"translate("+d.x+","+d.y+")");
 
     circlesGroup.append("circle")
-    .attr("r", d => rScale(d.Poblacion))
+    .attr("r", rScale)
     .attr("class", d=>clasesAcceso(d.Penetracion));
     
 circlesGroup.append("text")
     .attr("class","paisLabel")
-    .text(d=>d.Pais)
-    .attr("dy",isMobile?5:2)
+    .text(d=>d.app)
+    .attr("dy",5)
     .attr("font-size",16)
     .style("fill", "black");
 
-if(!isMobile){ circlesGroup.append("text")
-    .attr("class","paisSubLabel")
-    .text(d=>d3.format(".0%")(d.Penetracion/100))
-    .attr("dy",12)
-    .attr("font-size",11)
-    .style("fill", "black");
+    /* if(!isMobile){ circlesGroup.append("text")
+        .attr("class","paisSubLabel")
+        .text(d=>d3.format(".0%")(d.Penetracion*1000000))
+        .attr("dy",12)
+        .attr("font-size",11)
+        .style("fill", "black");
 
-}
+    } */
     
 var axis = main.append("g").attr("class","axis")
     .style("transform", isMobile?`translateX(${width*0.1}px`:`translateY(${height*0.95}px`);
@@ -535,6 +555,16 @@ var axis = main.append("g").attr("class","axis")
             .attr("dy",isMobile?0:14)
             .attr("text-anchor",isMobile?"end":"middle")
             .text(d=>d.toUpperCase());
+
+    if(!isMobile){
+    axis.append("text")
+            .attr("text-anchor",isMobile?"end":"middle")
+               .text("Penetración")
+               .attr("dy",-5)
+            .attr("x",isMobile?0:width/2)
+            .style("opacity",0.7)
+            ;
+        }
 
 
 } // fin beeswarm
