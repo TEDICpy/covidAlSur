@@ -55,9 +55,13 @@ figure.contenedorGrafico {
     padding: 10px;
 }
 
-svg .paisLabel{
+svg .paisLabel, svg .paisSubLabel{
     text-anchor: middle;
     font-family: sans-serif;
+}
+
+svg .paisSubLabel{
+    opacity: 0.7;
 }
 
 figure p{
@@ -65,6 +69,35 @@ figure p{
     margin: auto;
     text-align: left;
 }
+
+svg circle{
+    stroke-width: 0px;
+}
+
+svg .axis rect{
+    stroke-width: 0px;
+}
+
+svg .axis text{
+    font-size: 13px;
+}
+
+svg .bajo{
+    stroke: #ff5d12;
+    fill:#ff5d1260
+}
+
+svg .medio{
+    stroke: #6b9b2a;
+    fill:#6b9b2a60
+}
+
+svg .alto{
+    stroke: #069799;
+    fill:#06979960
+}
+
+
 
 </style>
 
@@ -280,8 +313,12 @@ var svg = d3.selectAll(".contenedorGrafico").selectAll(".grafico").append("svg")
     
 //***************ACA SE ARMAN LOS GRAFICOS
 
-svg.append("g")
-.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+svg
+    .data(d3.range(0,svg._groups.length-1))
+        .append("g")
+        
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .attr("ee",(d,i)=>console.log(d,i))
 	;
 
     svg.each(function(d,i){
@@ -292,7 +329,7 @@ svg.append("g")
 
 
 beeSwarmAcceso(dataPaises, "#gInterno0")
-beeSwarmPenetracion(dataPenetracion, "#gInterno1")
+//beeSwarmPenetracion(dataPenetracion, "#gInterno1")
 
 
 //alluvialSeguridad(dataPaises, "#gInterno0")
@@ -303,138 +340,101 @@ beeSwarmPenetracion(dataPenetracion, "#gInterno1")
 
 function beeSwarmAcceso(datos, cualGrafico){ // beeswarm
 
-  var main = d3.select(cualGrafico);
-        height = main._groups[0][0].parentElement.height.baseVal.value-margin.top-margin.bottom;
-        width = main._groups[0][0].parentElement.width.baseVal.value-margin.left-margin.right;
+        var main = d3.select(cualGrafico);
+                height = main._groups[0][0].parentElement.height.baseVal.value-margin.top-margin.bottom;
+                width = main._groups[0][0].parentElement.width.baseVal.value-margin.left-margin.right;
 
- 
+                var clasesAcceso = d3.scaleQuantize()
+                .domain(d3.extent(datos, d=> d.Acceso))
+                .range(["bajo", "medio", "alto"])
+                ;
 
-  var max_pop = d3.max(datos, d => d.Poblacion)
-  
-  
-  var xScale = d3.scaleLinear().domain(d3.extent(datos, d=> d.Acceso));
 
-  var coloreaPaisesAcceso = d3.scaleQuantize()
-            .domain(d3.extent(datos, d=> d.Acceso))
-            .range(["#ff5d12", "#6b9b2a", "#069799"])
-            ;
-  
-    isMobile?xScale.range([height*0.1, height*0.9]):xScale.range([width*0.1, width*0.9]);
-  var rScale = d3.scaleSqrt().domain([0, max_pop]).range([0, height/40])
- 
-  
-  var force = d3.forceSimulation(datos).force('forceX', d3.forceX(d => xScale(d.Acceso)).strength(2))
-        .force('forceY', d3.forceY(height/2).strength(0.1));
-
-  if(isMobile){
-      force
-        .force('forceY', d3.forceY(d => xScale(d.Acceso)).strength(2))
-        .force('forceX', d3.forceX(width/2).strength(0.1))
-  }
+        var max_pop = d3.max(datos, d => d.Poblacion)
         
-        force.force('collide', d3.forceCollide(d => rScale(d.Poblacion) + 0.5))
-        .stop();
-    
-  var NUM_ITERATIONS = 120;
-  
-  for (let i = 0; i < NUM_ITERATIONS; ++i) {
-    force.tick();
-  };
-  
-  force.stop();
-  
-  var circlesGroup = main.selectAll("g")
-    .data(datos)
-    .join("g")
-        .attr("transform", d=>"translate("+d.x+","+d.y+")");
+        
+        var xScale = d3.scaleLinear().domain(d3.extent(datos, d=> d.Acceso));
 
-    circlesGroup.append("circle")
-      .attr("r", d => rScale(d.Poblacion))
-      .style("fill", d=>coloreaPaisesAcceso(d.Acceso));
-      
-   circlesGroup.append("text")
-    .attr("class","paisLabel")
-      .text(d=>d.Pais)
-      .attr("dy",d=>rScale(d.Poblacion)/5)
-      .attr("font-size",d=>rScale(d.Poblacion)/2)
-      .style("fill", "black");
+            isMobile?xScale.range([height*0.1, height*0.9]):xScale.range([width*0.1, width*0.9]);
 
-  
-  main.append("g")
-    .call(isMobile?d3.axisRight(xScale):d3.axisTop(xScale))
-    .style("transform", isMobile?`translateX(${width*0.05}px`:`translateY(${height*0.75}px`)
-  
-  return main.node();
+        var rScale = d3.scaleSqrt().domain([0, max_pop]).range([0, isMobile?width/30:height/30])
+        
+        
+        var force = d3.forceSimulation(datos).force('forceX', d3.forceX(d => xScale(d.Acceso)).strength(2))
+                .force('forceY', d3.forceY(height/2).strength(0.1));
+
+        if(isMobile){
+            force
+                .force('forceY', d3.forceY(d => xScale(d.Acceso)).strength(2))
+                .force('forceX', d3.forceX(width/1.8).strength(0.1))
+        }
+                
+                force.force('collide', d3.forceCollide(d => rScale(d.Poblacion) + 3))
+                .stop();
+            
+        var NUM_ITERATIONS = 120;
+        
+        for (let i = 0; i < NUM_ITERATIONS; ++i) {
+            force.tick();
+        };
+        
+        force.stop();
+        
+        var circlesGroup = main.selectAll("g")
+            .data(datos)
+            .join("g")
+                .attr("transform", d=>"translate("+d.x+","+d.y+")");
+
+            circlesGroup.append("circle")
+            .attr("r", d => rScale(d.Poblacion))
+            .attr("class", d=>clasesAcceso(d.Acceso));
+            
+        circlesGroup.append("text")
+            .attr("class","paisLabel")
+            .text(d=>d.Pais)
+            .attr("dy",isMobile?5:2)
+            .attr("font-size",16)
+            .style("fill", "black");
+
+       if(!isMobile){ circlesGroup.append("text")
+            .attr("class","paisSubLabel")
+            .text(d=>d3.format(".0%")(d.Acceso/100))
+            .attr("dy",12)
+            .attr("font-size",11)
+            .style("fill", "black");
+
+    }
+            
+        var axis = main.append("g").attr("class","axis")
+            .style("transform", isMobile?`translateX(${width*0.1}px`:`translateY(${height*0.95}px`);
+
+            var rangosAxis = [clasesAcceso.domain()[0],
+                                clasesAcceso.thresholds()[0],
+                                clasesAcceso.thresholds()[1],
+                                clasesAcceso.domain()[1]];
+
+            axis.selectAll("rect")
+                .data(clasesAcceso.range())
+                .join("rect")
+                     .attr(isMobile?"y":"x", (d,i)=>xScale(rangosAxis[i]))
+                    .attr(isMobile?"height":"width", (d,i)=> xScale(rangosAxis[i+1])-xScale(rangosAxis[i]))
+                    .attr("class",d=>d)
+                    .attr(isMobile?"width":"height",isMobile?3:18);
+
+
+            axis.selectAll("text")
+                .data(clasesAcceso.range())
+                .join("text")
+                    .attr(isMobile?"y":"x", (d,i)=>(xScale(rangosAxis[i])+xScale(rangosAxis[i+1]))/2)
+                    .attr("dy",isMobile?0:14)
+                    .attr("text-anchor",isMobile?"end":"middle")
+                    .text(d=>d.toUpperCase());
+
+        
 } // fin beeswarm
 
 
 
-
-function beeSwarmPenetracion(datos, cualGrafico){ // beeswarm
-
-var main = d3.select(cualGrafico);
-      height = main._groups[0][0].parentElement.height.baseVal.value-margin.top-margin.bottom;
-      width = main._groups[0][0].parentElement.width.baseVal.value-margin.left-margin.right;
-
-
-
-var max_pop = d3.max(datos, d => d.Penetracion)
-
-
-var xScale = d3.scaleLinear().domain(d3.extent(datos, d=> d.Acceso));
-
-var coloreaPaisesAcceso = d3.scaleQuantize()
-          .domain(d3.extent(datos, d=> d.Acceso))
-          .range(["#ff5d12", "#6b9b2a", "#069799"])
-          ;
-
-  isMobile?xScale.range([height*0.1, height*0.9]):xScale.range([width*0.1, width*0.9]);
-var rScale = d3.scaleSqrt().domain([0, max_pop]).range([0, height/40])
-
-
-var force = d3.forceSimulation(datos).force('forceX', d3.forceX(d => xScale(d.Acceso)).strength(2))
-      .force('forceY', d3.forceY(height/2).strength(0.1));
-
-if(isMobile){
-    force
-      .force('forceY', d3.forceY(d => xScale(d.Acceso)).strength(2))
-      .force('forceX', d3.forceX(width/2).strength(0.1))
-}
-      
-      force.force('collide', d3.forceCollide(d => rScale(d.Penetracion) + 0.5))
-      .stop();
-  
-var NUM_ITERATIONS = 120;
-
-for (let i = 0; i < NUM_ITERATIONS; ++i) {
-  force.tick();
-};
-
-force.stop();
-
-var circlesGroup = main.selectAll("g")
-  .data(datos)
-  .join("g")
-      .attr("transform", d=>"translate("+d.x+","+d.y+")");
-
-  circlesGroup.append("circle")
-    .attr("r", d => rScale(d.Penetracion))
-    .style("fill", d=>coloreaPaisesAcceso(d.Acceso));
-    
- circlesGroup.append("text")
-  .attr("class","paisLabel")
-    .text(d=>d.app)
-    .attr("dy",d=>rScale(d.Penetracion)/5)
-    .attr("font-size",d=>rScale(d.Penetracion)/2)
-    .style("fill", "black");
-
-
-main.append("g")
-  .call(isMobile?d3.axisRight(xScale):d3.axisTop(xScale))
-  .style("transform", isMobile?`translateX(${width*0.05}px`:`translateY(${height*0.75}px`)
-
-return main.node();
-} // fin beeswarm
 
 
 
