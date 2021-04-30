@@ -63,6 +63,12 @@ svg circle{
     stroke-width: 0px;
 }
 
+svg .legend circle{
+    stroke-width: 2px;
+    stroke: #f1f1f1;
+    fill:#ddd;
+]}
+
 svg .axis rect{
     stroke-width: 0px;
 }
@@ -87,6 +93,30 @@ svg .alto{
 }
 
 
+.column-label{
+    text-anchor:middle;
+
+}
+
+
+
+.column-label:first-child{
+    text-anchor:start;
+
+}
+
+.column-label:last-child{
+    text-anchor:end;
+
+}
+
+@media only screen and (min-width: 768px) {
+    .column-label:first-child,.column-label:last-child{
+        text-anchor:middle;
+
+}
+
+}
 
 </style>
 

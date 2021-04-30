@@ -219,6 +219,20 @@ function beeSwarmAcceso(datos, cualGrafico){ // beeswarm
             .style("opacity",0.7)
             ;
         }
+
+        legend = legendCircle()
+                .scale(rScale)
+                .align("right")
+                .align(width)
+                .tickValues([10000000, 50000000])
+                .tickFormat((d, i, e) => i === e.length - 1 ? d3.format(".0s")(d) + (isMobile?" hab":" habitantes") : d3.format(".0s")(d))
+                .tickSize(1); // defaults to 5
+
+                    main.append("g").attr("class","legend")
+                        .call(legend)
+                        .select("g").attr("transform","translate("+(width-(isMobile?90:140))+",0)");
+                 
+
         
 } // fin beeswarm
 
@@ -248,7 +262,7 @@ function beeSwarmPenetracion(datos, cualGrafico){ // beeswarmPen
 
             isMobile?xScale.range([height*0.1, height*0.9]):xScale.range([width*0.1, width*0.9]);
 
-        var rScale = isMobile?width/20:height/20;
+        var rScale = isMobile?width/15:height/15;
 
 
         var force = d3.forceSimulation(datos).force('forceX', d3.forceX(d => xScale(d.Penetracion)).strength(2))
@@ -282,10 +296,13 @@ function beeSwarmPenetracion(datos, cualGrafico){ // beeswarmPen
             
         circlesGroup.append("text")
             .attr("class","paisLabel")
-            .text(d=>d.app)
-            .attr("dy",5)
+            .attr("dy",10)
+            .attr("y",-14)
             .attr("font-size",16)
-            .style("fill", "black");
+            .style("fill", "black")
+            .text(d=>d.app)
+            .call(wrap,isMobile?60:80)
+            ;
 
             /* if(!isMobile){ circlesGroup.append("text")
                 .attr("class","paisSubLabel")
@@ -357,10 +374,13 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
 
         /// aca actualiza los textos
 
-            d3.select("#scrolly1").selectAll(".step").selectAll("span").each(function(d,i)
+            d3.select("#scrolly1").selectAll(".step span").each(function(d,i)
                 {
+                    console.log(i)
                      if (i==0) d3.select(this).html(csvArrayNested[0].values[0].values[0].values[0].values[1].values.map(d=>` ${d[5]} (${d[6]})`))
                      if (i==1) d3.select(this).html(csvArrayNested[0].values[1].values[1].values[1].values[0].values.map(d=>` ${d[5]} (${d[6]})`))
+                    // if (i==2) d3.select(this).html(csvArrayNested[0].values[1].values[1].values[1].values[0].values.map(d=>` ${d[5]} (${d[6]})`))
+                     
 
                 }
             )
@@ -369,7 +389,7 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
         var  margin = {
             top: isMobile?0:10,
             left: isMobile?-15:60,
-            right:isMobile?15:60,
+            right:isMobile?15:90,
             bottom: isMobile?15:10
         };
         var altoTitulos =  60, nodeWidth = 10;
@@ -379,10 +399,10 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
 
        if(isMobile){
            width = d3.max([width,600]);
-           d3.select(svg._groups[0][0].parentElement).attr("width",width).attr("viewBox","0,0,"+width+","+svg._groups[0][0].parentElement.height);
-           d3.select(svg._groups[0][0].parentElement.parentElement).style("overflow-x","auto")
+           d3.select(svg._groups[0][0].parentElement).attr("width",width).attr("viewBox","0,0,"+width+","+d3.select(svg._groups[0][0].parentElement).attr("height"));
+           d3.select(svg._groups[0][0].parentElement.parentElement).style("overflow-x","auto");
+           svg.attr("font-size",12)
        }
-;
 
         var raw = new Map();
   
@@ -398,9 +418,7 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
                     }).slice(0,5);
 
 
-                    console.log(d3.nest()
-                        .key(function(d) { return d[0]; })
-                        .entries(csv));
+               
 
                 var opciones = ["si", "no", "ns/nc", "No se especifica.", "publicos", "En el país", "privados", "Fuera del País"];
 
@@ -528,9 +546,9 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
                             .classed("column-label", true)
                             .attr("transform",d => `translate(${columnLabelPosition(d, graph.nodes)}, ${ margin.top - 4})`)
                             .append("text")
-                            .attr("text-anchor", "middle")
+                            .attr("y",0)
                             .text(d => d.name)
-                            .call(wrap,150);
+                            .call(wrap,isMobile?100:150);
                     
                    /*  defs.selectAll("linearGradient")
                         .data(graph.links)
@@ -554,8 +572,6 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
                         .attr("stroke-width", d => d.width)
                         .attr("stroke-opacity", 0.7)
                         .attr("d", d3.sankeyLinkHorizontal())
-                        .attr("r", d=>console.log(d))
-
                         .append("title")
                         .text(d => `${d.source.group} ${arrow} ${d.target.group}\n(${d.value} apps)`);
                         
@@ -590,6 +606,122 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
 
 
 } // sankey
+
+
+
+
+function beeSwarmRecoleccion(datos, cualGrafico){ // beeswarmPen
+
+    var main = d3.select(cualGrafico);
+            height = main._groups[0][0].parentElement.height.baseVal.value-margin.top-margin.bottom;
+            width = main._groups[0][0].parentElement.width.baseVal.value-margin.left-margin.right;
+
+            var clasesAcceso = d3.scaleQuantize()
+            .domain(d3.extent(datos, d=> d.Penetracion))
+            .range(["bajo", "medio", "alto"])
+            ;
+
+
+    var max_pop = d3.max(datos, d => d.Poblacion)
+
+
+    var xScale = d3.scaleLinear().domain(d3.extent(datos, d=> d.Penetracion));
+
+    var xScale = d3.scaleLinear().domain(d3.extent(datos, d=> d.Penetracion));
+
+        isMobile?xScale.range([height*0.1, height*0.9]):xScale.range([width*0.1, width*0.9]);
+
+    var rScale = isMobile?width/15:height/15;
+
+
+    var force = d3.forceSimulation(datos).force('forceX', d3.forceX(d => xScale(d.Penetracion)).strength(2))
+            .force('forceY', d3.forceY(height/2).strength(0.1));
+
+    if(isMobile){
+        force
+            .force('forceY', d3.forceY(d => xScale(d.Penetracion)).strength(2))
+            .force('forceX', d3.forceX(width/1.8).strength(0.1))
+    }
+            
+            force.force('collide', d3.forceCollide(rScale + 3))
+            .stop();
+        
+    var NUM_ITERATIONS = 120;
+
+    for (let i = 0; i < NUM_ITERATIONS; ++i) {
+        force.tick();
+    };
+
+    force.stop();
+
+    var circlesGroup = main.selectAll("g")
+        .data(datos)
+        .join("g")
+            .attr("transform", d=>"translate("+d.x+","+d.y+")");
+
+        circlesGroup.append("circle")
+        .attr("r", rScale)
+        .attr("class", d=>clasesAcceso(d.Penetracion));
+        
+    circlesGroup.append("text")
+        .attr("class","paisLabel")
+        .attr("dy",10)
+        .attr("y",-14)
+        .attr("font-size",16)
+        .style("fill", "black")
+        .text(d=>d.app)
+        .call(wrap,isMobile?60:80)
+        ;
+
+        /* if(!isMobile){ circlesGroup.append("text")
+            .attr("class","paisSubLabel")
+            .text(d=>d3.format(".0%")(d.Penetracion*1000000))
+            .attr("dy",12)
+            .attr("font-size",11)
+            .style("fill", "black");
+
+        } */
+        
+    var axis = main.append("g").attr("class","axis")
+        .style("transform", isMobile?`translateX(${width*0.1}px`:`translateY(${height*0.95}px`);
+
+        var rangosAxis = [clasesAcceso.domain()[0],
+                            clasesAcceso.thresholds()[0],
+                            clasesAcceso.thresholds()[1],
+                            clasesAcceso.domain()[1]];
+
+        axis.selectAll("rect")
+            .data(clasesAcceso.range())
+            .join("rect")
+                .attr(isMobile?"y":"x", (d,i)=>xScale(rangosAxis[i]))
+                .attr(isMobile?"height":"width", (d,i)=> xScale(rangosAxis[i+1])-xScale(rangosAxis[i]))
+                .attr("class",d=>d)
+                .attr(isMobile?"width":"height",isMobile?3:18);
+
+
+        axis.selectAll("text")
+            .data(clasesAcceso.range())
+            .join("text")
+                .attr(isMobile?"y":"x", (d,i)=>(xScale(rangosAxis[i])+xScale(rangosAxis[i+1]))/2)
+                .attr("dy",isMobile?0:14)
+                .attr("text-anchor",isMobile?"end":"middle")
+                .text(d=>d.toUpperCase());
+
+        if(!isMobile){
+        axis.append("text")
+                .attr("text-anchor",isMobile?"end":"middle")
+                .text("Penetración")
+                .attr("dy",-5)
+                .attr("x",isMobile?0:width/2)
+                .style("opacity",0.7)
+                ;
+            }
+
+
+} // fin beeswarm recoleccion
+
+
+
 
 
 
@@ -677,11 +809,88 @@ function scrollyTelling(containerNumber,step,entra){
 
 //********** funciones
  
-        function measureWidth(){
-        const context = document.createElement("canvas").getContext("2d");
-        return text => context.measureText(text).width;
-        }
+       
 
+function legendCircle(context){
+    let scale,
+        tickValues,
+        tickFormat = d => d,
+        align,
+        alignWidth,
+        tickSize;
+    
+    function legend(context){
+      let g = context.select("g");
+      if (!g._groups[0][0]){
+        g = context.append("g");
+      }
+      
+      const ticks = tickValues || scale.ticks();
+      
+      const max = ticks[ticks.length - 1];
+      
+      g.attr("transform", `translate(${[1, 1]})`);
+
+
+      g.selectAll("circle")
+          .data(ticks.slice().reverse())
+        .enter().append("circle")
+          .attr("fill", "none")
+          .attr("stroke", "currentColor")
+          .attr("cx", scale(max))
+          .attr("cy", scale)
+          .attr("r", scale);
+      
+      g.selectAll("line")
+          .data(ticks)
+        .enter().append("line")
+          .attr("stroke", "currentColor")
+          .attr("stroke-dasharray", "4, 2")
+          .attr("x1", scale(max))
+          .attr("x2", tickSize + scale(max) * 2)
+          .attr("y1", d => scale(d) * 2)
+          .attr("y2", d => scale(d) * 2);
+      
+      g.selectAll("text")
+          .data(ticks)
+        .enter().append("text")
+          .attr("font-family", "'Helvetica Neue', sans-serif")
+          .attr("font-size", 11)
+          .attr("dx", 3)
+          .attr("dy", 4)
+          .attr("x", tickSize + scale(max) * 2)
+          .attr("y", d => scale(d) * 2)
+          .text(tickFormat);
+    }
+    
+    legend.tickSize = function(_){
+      return arguments.length ? (tickSize = +_, legend) : tickSize;
+    }
+    
+    legend.scale = function(_){
+      return arguments.length ? (scale = _, legend) : scale;
+    }
+  
+    legend.tickFormat = function(_){
+      return arguments.length ? (tickFormat = _, legend) : tickFormat;
+    }
+    
+    legend.tickValues = function(_){
+      return arguments.length ? (tickValues = _, legend) : tickValues;
+    }
+    
+    legend.align = function(_){
+        return arguments.length ? (align = _, legend) : align;
+      }
+      
+      legend.alignWidth = function(_){
+        return arguments.length ? (alignWidth = _, legend) : alignWidth;
+      }
+
+    return legend;
+  }
+
+  
         function wrap(text, width) {
                 text.each(function() {
                     var text = d3.select(this),
@@ -689,7 +898,7 @@ function scrollyTelling(containerNumber,step,entra){
                         word,
                         line = [],
                         lineNumber = 0,
-                        lineHeight = 1, // ems
+                        lineHeight = 14, // ems
                         y = text.attr("y"),
                         dy = 13,
                         tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "px");
