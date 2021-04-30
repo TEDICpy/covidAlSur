@@ -5,9 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 
 
-      <script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://unpkg.com/d3@5.9.0/dist/d3.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.js"></script>
       <script src="https://unpkg.com/enter-view"></script>
+      <script src="https://unpkg.com/d3-sankey@0"></script>
+
       <link rel="stylesheet" href="scrolly.css">
   
 </head>
@@ -140,16 +142,20 @@ svg .alto{
         <!-- acá van los textos de cada paso -->
         <article>
             <div class='step' data-index='0'>
-			    <p>Estas son las apps mas xxx                </p>
+			    <p>Si agrupamos las apps por sus características de seguridad podemos ver tres grandes grupos:</p>
             </div>
            
             <div class='step' data-index='1'>
-			    <p>Estas son las apps mas xxx                </p>
+			    <p>Las que <b>no informan</b> sobre las medidas de seguridad, el <b>codigo es privativo</b>, la información se guarda en <b>servidores privados</b> y <b>fuera del país</b>, como:</p>
             </div>
 
 
-            <div class='step' data-index='2'>
-			    <p>Estas son las apps mas xxx                </p>
+            <div class='step' data-index='1'>
+			    <p>Las que <b>si informan</b> sobre las medidas de seguridad, el <b>codigo es abierto</b>, la información se guarda en <b>servidores públicos</b> y <b>en el país</b>, como:</p>
+            </div>
+
+            <div class='step' data-index='3'>
+			    <p>Las que se encuentran en el medio, con una combinación de las variantes, como:</p>
             </div>
 
         </article>
@@ -228,7 +234,9 @@ svg .alto{
 
 Promise.all([
     d3.csv("paises.csv"),
-    d3.csv("apps_downloads.csv")
+    d3.csv("apps_downloads.csv"),
+    d3.csv("seguridad.csv")
+
 
 ]).then(function(files) {
    
@@ -310,7 +318,8 @@ var svg = d3.selectAll("svg")
 ///******** MANEJO DE DATOS ********
 
  var dataPaises = files[0],
-    dataPenetracion = files[1];
+    dataPenetracion = files[1],
+    dataSeguridad = files[2];
 
 
  dataPaises.forEach(element => {
@@ -341,6 +350,7 @@ svg
 
 beeSwarmAcceso(dataPaises, "#gInterno1")
 beeSwarmPenetracion(dataPenetracion, "#gInterno2")
+sankeySeguridad(dataSeguridad, "#gInterno3")
 
 
 //alluvialSeguridad(dataPaises, "#gInterno0")
@@ -461,115 +471,332 @@ function beeSwarmAcceso(datos, cualGrafico){ // beeswarm
 
 
 
-function beeSwarmPenetracion(datos, cualGrafico){ // beeswarm
+function beeSwarmPenetracion(datos, cualGrafico){ // beeswarmPen
 
-    console.log(datos)
-var main = d3.select(cualGrafico);
-        height = main._groups[0][0].parentElement.height.baseVal.value-margin.top-margin.bottom;
-        width = main._groups[0][0].parentElement.width.baseVal.value-margin.left-margin.right;
+        var main = d3.select(cualGrafico);
+                height = main._groups[0][0].parentElement.height.baseVal.value-margin.top-margin.bottom;
+                width = main._groups[0][0].parentElement.width.baseVal.value-margin.left-margin.right;
 
-        var clasesAcceso = d3.scaleQuantize()
-        .domain(d3.extent(datos, d=> d.Penetracion))
-        .range(["bajo", "medio", "alto"])
-        ;
-
-
-var max_pop = d3.max(datos, d => d.Poblacion)
+                var clasesAcceso = d3.scaleQuantize()
+                .domain(d3.extent(datos, d=> d.Penetracion))
+                .range(["bajo", "medio", "alto"])
+                ;
 
 
-var xScale = d3.scaleLinear().domain(d3.extent(datos, d=> d.Penetracion));
-
-var xScale = d3.scaleLinear().domain(d3.extent(datos, d=> d.Penetracion));
-
-    isMobile?xScale.range([height*0.1, height*0.9]):xScale.range([width*0.1, width*0.9]);
-
-var rScale = isMobile?width/20:height/20;
+        var max_pop = d3.max(datos, d => d.Poblacion)
 
 
-var force = d3.forceSimulation(datos).force('forceX', d3.forceX(d => xScale(d.Penetracion)).strength(2))
-        .force('forceY', d3.forceY(height/2).strength(0.1));
+        var xScale = d3.scaleLinear().domain(d3.extent(datos, d=> d.Penetracion));
 
-if(isMobile){
-    force
-        .force('forceY', d3.forceY(d => xScale(d.Penetracion)).strength(2))
-        .force('forceX', d3.forceX(width/1.8).strength(0.1))
-}
-        
-        force.force('collide', d3.forceCollide(rScale + 3))
-        .stop();
-    
-var NUM_ITERATIONS = 120;
+        var xScale = d3.scaleLinear().domain(d3.extent(datos, d=> d.Penetracion));
 
-for (let i = 0; i < NUM_ITERATIONS; ++i) {
-    force.tick();
-};
+            isMobile?xScale.range([height*0.1, height*0.9]):xScale.range([width*0.1, width*0.9]);
 
-force.stop();
-
-var circlesGroup = main.selectAll("g")
-    .data(datos)
-    .join("g")
-        .attr("transform", d=>"translate("+d.x+","+d.y+")");
-
-    circlesGroup.append("circle")
-    .attr("r", rScale)
-    .attr("class", d=>clasesAcceso(d.Penetracion));
-    
-circlesGroup.append("text")
-    .attr("class","paisLabel")
-    .text(d=>d.app)
-    .attr("dy",5)
-    .attr("font-size",16)
-    .style("fill", "black");
-
-    /* if(!isMobile){ circlesGroup.append("text")
-        .attr("class","paisSubLabel")
-        .text(d=>d3.format(".0%")(d.Penetracion*1000000))
-        .attr("dy",12)
-        .attr("font-size",11)
-        .style("fill", "black");
-
-    } */
-    
-var axis = main.append("g").attr("class","axis")
-    .style("transform", isMobile?`translateX(${width*0.1}px`:`translateY(${height*0.95}px`);
-
-    var rangosAxis = [clasesAcceso.domain()[0],
-                        clasesAcceso.thresholds()[0],
-                        clasesAcceso.thresholds()[1],
-                        clasesAcceso.domain()[1]];
-
-    axis.selectAll("rect")
-        .data(clasesAcceso.range())
-        .join("rect")
-             .attr(isMobile?"y":"x", (d,i)=>xScale(rangosAxis[i]))
-            .attr(isMobile?"height":"width", (d,i)=> xScale(rangosAxis[i+1])-xScale(rangosAxis[i]))
-            .attr("class",d=>d)
-            .attr(isMobile?"width":"height",isMobile?3:18);
+        var rScale = isMobile?width/20:height/20;
 
 
-    axis.selectAll("text")
-        .data(clasesAcceso.range())
-        .join("text")
-            .attr(isMobile?"y":"x", (d,i)=>(xScale(rangosAxis[i])+xScale(rangosAxis[i+1]))/2)
-            .attr("dy",isMobile?0:14)
-            .attr("text-anchor",isMobile?"end":"middle")
-            .text(d=>d.toUpperCase());
+        var force = d3.forceSimulation(datos).force('forceX', d3.forceX(d => xScale(d.Penetracion)).strength(2))
+                .force('forceY', d3.forceY(height/2).strength(0.1));
 
-    if(!isMobile){
-    axis.append("text")
-            .attr("text-anchor",isMobile?"end":"middle")
-               .text("Penetración")
-               .attr("dy",-5)
-            .attr("x",isMobile?0:width/2)
-            .style("opacity",0.7)
-            ;
+        if(isMobile){
+            force
+                .force('forceY', d3.forceY(d => xScale(d.Penetracion)).strength(2))
+                .force('forceX', d3.forceX(width/1.8).strength(0.1))
         }
+                
+                force.force('collide', d3.forceCollide(rScale + 3))
+                .stop();
+            
+        var NUM_ITERATIONS = 120;
+
+        for (let i = 0; i < NUM_ITERATIONS; ++i) {
+            force.tick();
+        };
+
+        force.stop();
+
+        var circlesGroup = main.selectAll("g")
+            .data(datos)
+            .join("g")
+                .attr("transform", d=>"translate("+d.x+","+d.y+")");
+
+            circlesGroup.append("circle")
+            .attr("r", rScale)
+            .attr("class", d=>clasesAcceso(d.Penetracion));
+            
+        circlesGroup.append("text")
+            .attr("class","paisLabel")
+            .text(d=>d.app)
+            .attr("dy",5)
+            .attr("font-size",16)
+            .style("fill", "black");
+
+            /* if(!isMobile){ circlesGroup.append("text")
+                .attr("class","paisSubLabel")
+                .text(d=>d3.format(".0%")(d.Penetracion*1000000))
+                .attr("dy",12)
+                .attr("font-size",11)
+                .style("fill", "black");
+
+            } */
+            
+        var axis = main.append("g").attr("class","axis")
+            .style("transform", isMobile?`translateX(${width*0.1}px`:`translateY(${height*0.95}px`);
+
+            var rangosAxis = [clasesAcceso.domain()[0],
+                                clasesAcceso.thresholds()[0],
+                                clasesAcceso.thresholds()[1],
+                                clasesAcceso.domain()[1]];
+
+            axis.selectAll("rect")
+                .data(clasesAcceso.range())
+                .join("rect")
+                    .attr(isMobile?"y":"x", (d,i)=>xScale(rangosAxis[i]))
+                    .attr(isMobile?"height":"width", (d,i)=> xScale(rangosAxis[i+1])-xScale(rangosAxis[i]))
+                    .attr("class",d=>d)
+                    .attr(isMobile?"width":"height",isMobile?3:18);
 
 
-} // fin beeswarm
+            axis.selectAll("text")
+                .data(clasesAcceso.range())
+                .join("text")
+                    .attr(isMobile?"y":"x", (d,i)=>(xScale(rangosAxis[i])+xScale(rangosAxis[i+1]))/2)
+                    .attr("dy",isMobile?0:14)
+                    .attr("text-anchor",isMobile?"end":"middle")
+                    .text(d=>d.toUpperCase());
+
+            if(!isMobile){
+            axis.append("text")
+                    .attr("text-anchor",isMobile?"end":"middle")
+                    .text("Penetración")
+                    .attr("dy",-5)
+                    .attr("x",isMobile?0:width/2)
+                    .style("opacity",0.7)
+                    ;
+                }
 
 
+} // fin beeswarm PEN
+
+
+
+function sankeySeguridad(csv, cualGrafico){ // sankey
+        var height = 400,
+        margin = {
+                    top: 10,
+                    left: 60,
+                    right: 60,
+                    bottom: 10
+                }
+;
+
+        var raw = new Map();
+  
+
+        
+        var weeks = new Array(csv.columns.length)
+                    .fill({})
+                    .map((_, i) => { 
+                        return {
+                        index: i,
+                        name: csv.columns[i] 
+                        }; 
+                    }).slice(0,5);
+
+                    console.log(d3.nest()
+                        .key(function(d) { return d[0]; })
+                        .entries(csv));
+
+                var opciones = ["si", "no", "ns/nc", "No se especifica.", "publicos", "En el país", "privados", "Fuera del País"];
+
+                
+                var color = d3.scaleOrdinal().domain(opciones).range(["#ff5d1280","#6b9b2a80","#06979980"]);
+
+               var arrow = "\u2192";
+
+
+                var groups = new Array(opciones.length)
+                    .fill({})
+                    .map((_, i) => {
+                        return {
+                        index: i,
+                        name: opciones[i],
+                        color: color(opciones[i])
+                        };
+                    });
+
+         
+    /*              function linearGradientStops(link){
+                            return [
+                                { offset: 0.0, stopColor: link.source.color},
+                                { offset: 1.0, stopColor: link.target.color}  
+                            ];
+                            } */
+
+                function columnLabelPosition(week, nodesFull){
+                            let nodesAtDepth = nodesFull.filter(n => n.depth === week.index);
+                            let x0 = d3.min(nodesAtDepth, n => n.x0);
+                            let x1 = d3.min(nodesAtDepth, n => n.x1);
+                            return (x0 + x1) / 2;
+                            }
+           
+                            
+                            for (let i = 0; i < csv.length; i++) {
+                                let val = [];
+                                for (let j = 0; j < weeks.length; j++) {
+                                let x = Object.values(csv[i])[j];
+                                val.push(x);
+                                }
+                                raw.set(`${csv[i].app}`, val);
+                            }
+                    
+         
+                const nodes = [];
+                const links = [];
+                
+                function findGroup(index) {       
+                    return groups.find(g => g.index === index);
+                }
+                
+                function findLink(source, target) {
+                    return links.find(l => l.source === source && l.target === target);
+                }
+                
+                function findNode(week, group) {
+                    return nodes.find(n => n.week === week && n.group === group);
+                }
+                
+                raw.forEach((value, key) => {
+                    for (let i = 1; i < value.length; i++) {
+                    // Get the previous and current nodes.
+                    let _nodes = [i - 1, i].map((x) => {
+                        let group = value[x];
+                        let node = findNode(weeks[x], group);
+                        if (node) {
+                        node.value++;
+                        }
+                        else {
+                        node = { 
+                            week: weeks[x], 
+                            group: group,
+                            color: color(group),
+                            value: 1 
+                        };
+                        nodes.push(node);
+                        }
+                        return node;
+                    });
+                    // Get the link for these two nodes.
+
+                    let link = findLink(_nodes[0], _nodes[1]);
+                    if (link) {
+                            link.value++;
+                        }
+                        else {
+                            link = { 
+                            source: _nodes[0], 
+                            target: _nodes[1], 
+                            value: 1//,
+                            //gradient: "g"+key
+                            };
+                            links.push(link);
+                        }
+                    }
+                });
+                
+                var data =  {
+                    nodes: nodes,
+                    links: links
+                };
+                
+                var altoTitulos =  60, nodeWidth = 10;
+
+                var graph = d3.sankey()
+                            .size([width - margin.left - margin.right,height - margin.top - altoTitulos - margin.bottom])
+                            .nodePadding(10)
+                            .nodeWidth(nodeWidth)
+                            .iterations(15)(data);
+
+                            
+                var svg = d3.select(cualGrafico);
+                    
+                   // let defs = svg.append("defs");
+                    
+                    let gView = svg.append("g")
+                        .classed("view", true)
+                        .attr("transform", `translate(${margin.left}, ${margin.top+altoTitulos})`);
+                    
+                    svg.append("g")
+                        .classed("column-labels", true)
+                        .attr("transform", `translate(${margin.left}, 0)`)
+                        .selectAll("text.column-label")
+                        .data(weeks)
+                        .join("g")
+                            .classed("column-label", true)
+                            .attr("transform",d => `translate(${columnLabelPosition(d, graph.nodes)}, ${ margin.top - 4})`)
+                            .append("text")
+                            .attr("text-anchor", "middle")
+                            .text(d => d.name)
+                            .call(wrap,150);
+                    
+                   /*  defs.selectAll("linearGradient")
+                        .data(graph.links)
+                        .join("linearGradient")
+                        .attr("id", d => `${d.gradient.id}`)
+                        .attr("gradientUnits", "userSpaceOnUse")
+                        .attr("x1", d => d.source.x1)
+                        .attr("x2", d => d.target.x0)
+                        .selectAll("stop")
+                        .data(d => linearGradientStops(d))
+                        .join("stop")
+                        .attr("offset", d => d.offset)
+                        .attr("stop-color", d => d.stopColor); */
+                    
+                        gView.selectAll("path.link")
+                        .data(graph.links)
+                        .join("path")
+                        .classed("link", true)
+                        .attr("fill", "none")
+                        .attr("stroke", "silver")//d => `${d.gradient}`)
+                        .attr("stroke-width", d => d.width)
+                        .attr("stroke-opacity", 0.7)
+                        .attr("d", d3.sankeyLinkHorizontal())
+                        .attr("r", d=>console.log(d))
+
+                        .append("title")
+                        .text(d => `${d.source.group} ${arrow} ${d.target.group}\n(${d.value} apps)`);
+                        
+
+                    gView.selectAll("rect.node")
+                        .data(graph.nodes)
+                        .join("rect")
+                            .classed("node", true)
+                            .attr("x", d => d.x0)
+                            .attr("y", d => d.y0)
+                            .attr("width", d => d.x1 - d.x0)
+                            .attr("height", d => d.y1 - d.y0)
+                            .attr("fill", d => d.color)
+                            .append("title")
+                            .text(d => `${d.group}\n(${d.value} apps)`);
+
+                    gView.selectAll("labels.node")
+                        .data(graph.nodes)
+                        .join("text")
+                            .attr("x", d => d.x0)
+                            .attr("y", d => (d.y0 + d.y1)/2)
+                                .text(d => `${d.group}`)
+                                .attr("dy", 5)
+                                .attr("text-anchor", d=>d.week.index<3?"start":"end")
+                                .attr("dx", d=>d.week.index<3?(nodeWidth+5):-5);
+
+                    
+                    
+                
+
+
+
+
+} // sankey
 
 
 
@@ -586,8 +813,11 @@ var axis = main.append("g").attr("class","axis")
 function scrollyTelling(containerNumber,step,entra){
 	if(containerNumber == 1){  //GRAFICO PRIMER SCROLLY
 		switch (step) {
-			case 0: // testeos y positivos 
-              
+			case 0: // seguridad
+                    d3.selectAll(".link").transition().duration(400).attr("stroke-opacity",0.7)
+			break;
+            case 1: // seguridad
+                    d3.selectAll(".link").filter(d=>(d.source.layer == 1 && d.target.group == "no" && d.source.group == "no") || (d.source.layer == 2 && d.target.group == "privados" && d.source.group == "no") ||  (d.source.layer == 3 && d.target.group == "Fuera del País" && d.source.group == "privados") ).transition().duration(400).attr("stroke-opacity",1)
 			break;
       
 	    }
@@ -619,7 +849,34 @@ function scrollyTelling(containerNumber,step,entra){
 
 //********** funciones
  
+        function measureWidth(){
+        const context = document.createElement("canvas").getContext("2d");
+        return text => context.measureText(text).width;
+        }
 
+        function wrap(text, width) {
+                text.each(function() {
+                    var text = d3.select(this),
+                        words = text.text().split(/\s+/).reverse(),
+                        word,
+                        line = [],
+                        lineNumber = 0,
+                        lineHeight = 1, // ems
+                        y = text.attr("y"),
+                        dy = 13,
+                        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "px");
+                    while (word = words.pop()) {
+                        line.push(word);
+                        tspan.text(line.join(" "));
+                            if (tspan.node().getComputedTextLength() > width) {
+                                line.pop();
+                                tspan.text(line.join(" "));
+                                line = [word];
+                                tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "px").text(word);
+                            }
+                    }
+                    });
+                }
 
 
 });
