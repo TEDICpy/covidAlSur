@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+
+
+<script src="https://unpkg.com/d3@5.9.0/dist/d3.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.js"></script>
+      <script src="https://unpkg.com/enter-view"></script>
+      <script src="https://unpkg.com/d3-sankey@0"></script>
+
+      <link rel="stylesheet" href="scrolly.css">
+      <script src="en/textos.js"></script>
+      <script src="controller.js"></script>
+  
+</head>
+
+<body>
+      <script>
+    d3.timeFormatDefaultLocale(textos.d3);
+    d3.formatDefaultLocale(textos.d3);
+
+    var anchoDiv = document.getElementsByTagName("body")[0].clientWidth;
+    var isMobile = anchoDiv < 768 ? 1 : 0; 
+
+      </script>
+    
+  
+  
+      
+
+
+<style>
+body{
+    font-family: sans-serif;
+}
+section {
+    max-width: 1000px;
+    margin:auto;
+}
+
+figure.contenedorGrafico {
+    padding: 10px;
+}
+
+svg .paisLabel, svg .paisSubLabel{
+    text-anchor: middle;
+    font-family: sans-serif;
+}
+
+svg .paisSubLabel{
+    opacity: 0.7;
+}
+
+figure p{
+    max-width: 700px;
+    margin: auto;
+    text-align: left;
+}
+
+svg circle{
+    stroke-width: 0px;
+}
+
+svg .axis rect{
+    stroke-width: 0px;
+}
+
+svg .axis text{
+    font-size: 13px;
+}
+
+svg .bajo{
+    stroke: #ff5d12;
+    fill:#ff5d1260
+}
+
+svg .medio{
+    stroke: #6b9b2a;
+    fill:#6b9b2a60
+}
+
+svg .alto{
+    stroke: #069799;
+    fill:#06979960
+}
+
+
+
+</style>
+
+<section id='NOscrolly1'>
+    <div class='NOscrolly'>
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico1" class='sticky contenedorGrafico' >
+            <h2 id="grafico1.title"></h2>
+            <p id="grafico1.description"></p>
+
+            <div class="grafico"></div>
+
+        </figure>
+
+	</div>
+</section>
+
+<section id='NOscrolly1'>
+    <div class='NOscrolly'>
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico2" class='sticky contenedorGrafico' >
+            <h2>Downloads y acceso a internet</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <div class="grafico"></div>
+        </figure>
+
+	</div>
+</section>
+
+
+
+<section id='scrolly1'>
+    <div class='scrolly'>
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico3" class='sticky contenedorGrafico' >
+            <h2>Seguridad</h2>
+            <div class="grafico"></div>
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+			    <p>Si agrupamos las apps por sus características de seguridad podemos ver tres grandes grupos:</p>
+            </div>
+           
+            <div class='step' data-index='1'>
+			    <p>Las que <b>no informan</b> sobre las medidas de seguridad, el <b>codigo es privativo</b>, la información se guarda en <b>servidores privados</b> y <b>fuera del país</b>, como:</p>
+            </div>
+
+
+            <div class='step' data-index='1'>
+			    <p>Las que <b>si informan</b> sobre las medidas de seguridad, el <b>codigo es abierto</b>, la información se guarda en <b>servidores públicos</b> y <b>en el país</b>, como:</p>
+            </div>
+
+            <div class='step' data-index='3'>
+			    <p>Las que se encuentran en el medio, con una combinación de las variantes, como:</p>
+            </div>
+
+        </article>
+		
+	</div>
+</section>
+
+
+
+
+<section id='scrolly2'>
+    <div class='scrolly'>
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico4" class='sticky contenedorGrafico' >
+            <h2>Recolección de datos</h2>
+            <div class="grafico"></div>
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+			    <p>Estas son las apps mas xxx                </p>
+            </div>
+           
+            <div class='step' data-index='1'>
+			    <p>Estas son las apps mas xxx                </p>
+            </div>
+
+
+            <div class='step' data-index='2'>
+			    <p>Estas son las apps mas xxx                </p>
+            </div>
+
+        </article>
+		
+	</div>
+</section>
+
+
+
+
+<section id='scrolly3'>
+    <div class='scrolly'>
+        <!-- aca va el grafico que va a quedar fijo -->
+        <figure id="grafico4" class='sticky contenedorGrafico' >
+            <h2>La importancia del consentimiento en los datos recogidos por las apps</h2>
+            <div class="grafico"></div>
+        </figure>
+
+        <!-- acá van los textos de cada paso -->
+        <article>
+            <div class='step' data-index='0'>
+			    <p>Estas son las apps mas xxx                </p>
+            </div>
+           
+            <div class='step' data-index='1'>
+			    <p>Estas son las apps mas xxx                </p>
+            </div>
+
+
+            <div class='step' data-index='2'>
+			    <p>Estas son las apps mas xxx                </p>
+            </div>
+
+        </article>
+		
+	</div>
+</section>
+
+
+
+ <!-- Scripts -->
+ <script>
+	
+	//********************* CARGA DATOS ************
+
+setTimeout(() => {
+    Promise.all([
+        d3.csv(textos.lang + "/paises.csv"),
+        d3.csv(textos.lang + "/apps_downloads.csv"),
+        d3.csv(textos.lang + "/seguridad.csv")
+    ]).then(function(files) {
+       controller(files);
+    });
+}, 1000)
+
+// asignar textos a elementos html cuyo id coincida con la posición del objeto textos
+for (const key in textos) {
+    if (Object.hasOwnProperty.call(textos, key)) {
+        let htmlElement = document.getElementById(key);
+        if (htmlElement) {
+            htmlElement.textContent = textos[key];
+        }
+    }
+}
+
+</script>
+
+</body>
+</html>

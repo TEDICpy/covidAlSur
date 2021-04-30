@@ -1,249 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-
-
-<script src="https://unpkg.com/d3@5.9.0/dist/d3.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.js"></script>
-      <script src="https://unpkg.com/enter-view"></script>
-      <script src="https://unpkg.com/d3-sankey@0"></script>
-
-      <link rel="stylesheet" href="scrolly.css">
+window.controller = (files) => {
   
-</head>
-
-<body>
-      <script>
-      var es_ES = {
-        "decimal": ",",
-        "thousands": ".",
-        "grouping": [3],
-        "currency": ["$", ""],
-        "dateTime": "%a %b %e %X %Y",
-        "date": "%d/%m/%Y",
-        "time": "%H:%M:%S",
-        "periods": ["AM", "PM"],
-        "days": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-        "shortDays": ["Dom", "Lun", "Mar", "Mi", "Jue", "Vie", "Sab"],
-        "months": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-        "shortMonths": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
-    };
-
-    d3.timeFormatDefaultLocale(es_ES);
-    d3.formatDefaultLocale(es_ES);
-
-    var anchoDiv = document.getElementsByTagName("body")[0].clientWidth;
-    var isMobile = anchoDiv < 768 ? 1 : 0; 
-
-      </script>
-    
-  
-  
-      
-
-
-<style>
-body{
-    font-family: sans-serif;
-}
-section {
-    max-width: 1000px;
-    margin:auto;
-}
-
-figure.contenedorGrafico {
-    padding: 10px;
-}
-
-svg .paisLabel, svg .paisSubLabel{
-    text-anchor: middle;
-    font-family: sans-serif;
-}
-
-svg .paisSubLabel{
-    opacity: 0.7;
-}
-
-figure p{
-    max-width: 700px;
-    margin: auto;
-    text-align: left;
-}
-
-svg circle{
-    stroke-width: 0px;
-}
-
-svg .axis rect{
-    stroke-width: 0px;
-}
-
-svg .axis text{
-    font-size: 13px;
-}
-
-svg .bajo{
-    stroke: #ff5d12;
-    fill:#ff5d1260
-}
-
-svg .medio{
-    stroke: #6b9b2a;
-    fill:#6b9b2a60
-}
-
-svg .alto{
-    stroke: #069799;
-    fill:#06979960
-}
-
-
-
-</style>
-
-<section id='NOscrolly1'>
-    <div class='NOscrolly'>
-        <!-- aca va el grafico que va a quedar fijo -->
-        <figure id="grafico1" class='sticky contenedorGrafico' >
-            <h2>Acceso a internet y población</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-            <div class="grafico"></div>
-
-        </figure>
-
-	</div>
-</section>
-
-<section id='NOscrolly1'>
-    <div class='NOscrolly'>
-        <!-- aca va el grafico que va a quedar fijo -->
-        <figure id="grafico2" class='sticky contenedorGrafico' >
-            <h2>Downloads y acceso a internet</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <div class="grafico"></div>
-        </figure>
-
-	</div>
-</section>
-
-
-
-<section id='scrolly1'>
-    <div class='scrolly'>
-        <!-- aca va el grafico que va a quedar fijo -->
-        <figure id="grafico3" class='sticky contenedorGrafico' >
-            <h2>Seguridad</h2>
-            <div class="grafico"></div>
-        </figure>
-
-        <!-- acá van los textos de cada paso -->
-        <article>
-            <div class='step' data-index='0'>
-			    <p>Si agrupamos las apps por sus características de seguridad podemos ver tres grandes grupos: </p>
-            </div>
-           
-            <div class='step' data-index='1'>
-			    <p>Las que <b>no informan</b> sobre las medidas de seguridad, el <b>codigo es privativo</b>, la información se guarda en <b>servidores privados</b> y <b>fuera del país</b>, como: <span id="apps1"></span></p>
-            </div>
-
-
-            <div class='step' data-index='2'>
-			    <p>Las que <b>si informan</b> sobre las medidas de seguridad, el <b>codigo es abierto</b>, la información se guarda en <b>servidores públicos</b> y <b>en el país</b>, como: <span id="apps2"></span></p>
-            </div>
-
-            <div class='step' data-index='3'>
-			    <p>Las que se encuentran en el medio, con una combinación de las variantes, como: <span id="apps3"></span></p>
-            </div>
-
-        </article>
-		
-	</div>
-</section>
-
-
-
-
-<section id='scrolly2'>
-    <div class='scrolly'>
-        <!-- aca va el grafico que va a quedar fijo -->
-        <figure id="grafico4" class='sticky contenedorGrafico' >
-            <h2>Recolección de datos</h2>
-            <div class="grafico"></div>
-        </figure>
-
-        <!-- acá van los textos de cada paso -->
-        <article>
-            <div class='step' data-index='0'>
-			    <p>Estas son las apps mas xxx                </p>
-            </div>
-           
-            <div class='step' data-index='1'>
-			    <p>Estas son las apps mas xxx                </p>
-            </div>
-
-
-            <div class='step' data-index='2'>
-			    <p>Estas son las apps mas xxx                </p>
-            </div>
-
-        </article>
-		
-	</div>
-</section>
-
-
-
-
-<section id='scrolly3'>
-    <div class='scrolly'>
-        <!-- aca va el grafico que va a quedar fijo -->
-        <figure id="grafico4" class='sticky contenedorGrafico' >
-            <h2>La importancia del consentimiento en los datos recogidos por las apps</h2>
-            <div class="grafico"></div>
-        </figure>
-
-        <!-- acá van los textos de cada paso -->
-        <article>
-            <div class='step' data-index='0'>
-			    <p>Estas son las apps mas xxx                </p>
-            </div>
-           
-            <div class='step' data-index='1'>
-			    <p>Estas son las apps mas xxx                </p>
-            </div>
-
-
-            <div class='step' data-index='2'>
-			    <p>Estas son las apps mas xxx                </p>
-            </div>
-
-        </article>
-		
-	</div>
-</section>
-
-
-
- <!-- Scripts -->
- <script>
-	
-	//********************* CARGA DATOS ************
-setTimeout(()=>{
-Promise.all([
-    d3.csv("paises.csv"),
-    d3.csv("apps_downloads.csv"),
-    d3.csv("seguridad.csv")
-
-
-]).then(function(files) {
-   
-    
-       
-
-
     // **** CODIGO DEL SCROLLY *******
 
 
@@ -351,6 +107,12 @@ svg
 beeSwarmAcceso(dataPaises, "#gInterno1")
 beeSwarmPenetracion(dataPenetracion, "#gInterno2")
 sankeySeguridad(dataSeguridad, "#gInterno3")
+
+
+//alluvialSeguridad(dataPaises, "#gInterno0")
+
+
+
 
 
 function beeSwarmAcceso(datos, cualGrafico){ // beeswarm
@@ -486,7 +248,7 @@ function beeSwarmPenetracion(datos, cualGrafico){ // beeswarmPen
 
             isMobile?xScale.range([height*0.1, height*0.9]):xScale.range([width*0.1, width*0.9]);
 
-        var rScale = isMobile?width/15:height/15;
+        var rScale = isMobile?width/20:height/20;
 
 
         var force = d3.forceSimulation(datos).force('forceX', d3.forceX(d => xScale(d.Penetracion)).strength(2))
@@ -574,14 +336,47 @@ function beeSwarmPenetracion(datos, cualGrafico){ // beeswarmPen
 
 
 
+
+
+
 function sankeySeguridad(csv, cualGrafico){ // sankey
-        var height = 400,
-        margin = {
-                    top: 10,
-                    left: 60,
-                    right: 60,
-                    bottom: 10
+
+    var svg = d3.select(cualGrafico);
+
+
+    var csvArray = csv.map(d=>Object.values(d));
+    var csvArrayNested = d3.nest()
+                .key(function(d) { return d[0]; })
+                .key(function(d) { return d[1]; })
+                .key(function(d) { return d[2]; })
+                .key(function(d) { return d[3]; })
+                .key(function(d) { return d[4]; })
+                .entries(csvArray);
+
+                console.log(csvArrayNested)
+
+        /// aca actualiza los textos
+
+            d3.select("#scrolly1").selectAll(".step").selectAll("span").each(function(d,i)
+                {
+                     if (i==0) d3.select(this).html(csvArrayNested[0].values[0].values[0].values[0].values[1].values.map(d=>` ${d[5]} (${d[6]})`))
+                     if (i==1) d3.select(this).html(csvArrayNested[0].values[1].values[1].values[1].values[0].values.map(d=>` ${d[5]} (${d[6]})`))
+
                 }
+            )
+        ///
+
+        var  margin = {
+            top: isMobile?0:10,
+            left: isMobile?-15:60,
+            right:isMobile?15:60,
+            bottom: isMobile?15:10
+        };
+        var altoTitulos =  60, nodeWidth = 10;
+
+        var height = svg._groups[0][0].parentElement.height.baseVal.value-altoTitulos,
+        width = svg._groups[0][0].parentElement.width.baseVal.value-margin.left-margin.right;
+       
 ;
 
         var raw = new Map();
@@ -597,7 +392,10 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
                         }; 
                     }).slice(0,5);
 
-       
+
+                    console.log(d3.nest()
+                        .key(function(d) { return d[0]; })
+                        .entries(csv));
 
                 var opciones = ["si", "no", "ns/nc", "No se especifica.", "publicos", "En el país", "privados", "Fuera del País"];
 
@@ -701,7 +499,6 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
                     links: links
                 };
                 
-                var altoTitulos =  60, nodeWidth = 10;
 
                 var graph = d3.sankey()
                             .size([width - margin.left - margin.right,height - margin.top - altoTitulos - margin.bottom])
@@ -710,7 +507,6 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
                             .iterations(15)(data);
 
                             
-                var svg = d3.select(cualGrafico);
                     
                    // let defs = svg.append("defs");
                     
@@ -751,7 +547,7 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
                         .attr("fill", "none")
                         .attr("stroke", "silver")//d => `${d.gradient}`)
                         .attr("stroke-width", d => d.width)
-                        .attr("stroke-opacity", 0.5)
+                        .attr("stroke-opacity", 0.7)
                         .attr("d", d3.sankeyLinkHorizontal())
                         .attr("r", d=>console.log(d))
 
@@ -804,7 +600,6 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
 
 function scrollyTelling(containerNumber,step,entra){
 	if(containerNumber == 1){  //GRAFICO PRIMER SCROLLY
-        console.log(step);
 		switch (step) {
 
 			case 0: // seguridad
@@ -907,19 +702,4 @@ function scrollyTelling(containerNumber,step,entra){
                 }
 
 
-})
-
-},1000);
-
-</script>
-
-    
-
-  
-  
- 
-
-  
-
-</body>
-</html>
+}
