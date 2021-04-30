@@ -10,7 +10,7 @@
         #contenedorGrafico.sticky,  .contenedorGrafico.sticky{
             position: -webkit-sticky;
             position: sticky;
-            top: 5vh;
+            top: 1vh;
             height: 95vh;
             margin: 0px;
             background-color: #f1f1f1;

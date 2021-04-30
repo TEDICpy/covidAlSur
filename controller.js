@@ -374,9 +374,14 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
         };
         var altoTitulos =  60, nodeWidth = 10;
 
-        var height = svg._groups[0][0].parentElement.height.baseVal.value-altoTitulos,
+        var height = svg._groups[0][0].parentElement.height.baseVal.value-altoTitulos*1.3-margin.top-margin.bottom,
         width = svg._groups[0][0].parentElement.width.baseVal.value-margin.left-margin.right;
-       
+
+       if(isMobile){
+           width = d3.max([width,600]);
+           d3.select(svg._groups[0][0].parentElement).attr("width",width).attr("viewBox","0,0,"+width+","+svg._groups[0][0].parentElement.height);
+           d3.select(svg._groups[0][0].parentElement.parentElement).style("overflow-x","auto")
+       }
 ;
 
         var raw = new Map();
@@ -501,7 +506,7 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
                 
 
                 var graph = d3.sankey()
-                            .size([width - margin.left - margin.right,height - margin.top - altoTitulos - margin.bottom])
+                            .size([width,height])
                             .nodePadding(10)
                             .nodeWidth(nodeWidth)
                             .iterations(15)(data);
