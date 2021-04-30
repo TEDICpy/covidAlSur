@@ -75,7 +75,8 @@ var svg = d3.selectAll("svg")
 
  var dataPaises = files[0],
     dataPenetracion = files[1],
-    dataSeguridad = files[2];
+    dataSeguridad = files[2],
+    dataRecoleccion = files[3];
 
 
  dataPaises.forEach(element => {
@@ -108,8 +109,7 @@ beeSwarmAcceso(dataPaises, "#gInterno1")
 beeSwarmPenetracion(dataPenetracion, "#gInterno2")
 sankeySeguridad(dataSeguridad, "#gInterno3")
 
-
-//alluvialSeguridad(dataPaises, "#gInterno0")
+beeSwarmRecoleccion(dataRecoleccion, "#gInterno4")
 
 
 
@@ -189,6 +189,7 @@ function beeSwarmAcceso(datos, cualGrafico){ // beeswarm
                                 clasesAcceso.thresholds()[0],
                                 clasesAcceso.thresholds()[1],
                                 clasesAcceso.domain()[1]];
+
 
             axis.selectAll("rect")
                 .data(clasesAcceso.range())
@@ -610,58 +611,106 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
 
 
 
-function beeSwarmRecoleccion(datos, cualGrafico){ // beeswarmPen
+function beeSwarmRecoleccion(datos, cualGrafico){ // beeswarmAcceso
 
     var main = d3.select(cualGrafico);
             height = main._groups[0][0].parentElement.height.baseVal.value-margin.top-margin.bottom;
             width = main._groups[0][0].parentElement.width.baseVal.value-margin.left-margin.right;
 
-            var clasesAcceso = d3.scaleQuantize()
-            .domain(d3.extent(datos, d=> d.Penetracion))
+
+            datos.forEach(d=>{
+                d.app = d.app.trim();
+                d["Age"] = d["Age"]== "Si"?1:0;
+                d["DNI"] = d["DNI"]== "Si"?1:0;
+                d["Gender"] = d["Gender"]== "Si"?1:0;
+                d.personales = d["Age"]+d["DNI"]+d["Gender"] ;
+
+                d["Location"] = d["Location"]== "Si"?1:0;
+                d["Address"] = d["Address"]=="Si"?1:0;
+                d.ubicacion = d["Location"]+d["Address"];
+
+                d["Other pre-existing diseases"] = d["Other pre-existing diseases"]== "Si"?1:0;
+                d["Photograph of the user"] = d["Photograph of the user"]== "Si"?1:0;
+                d["Symptomatology"] = d["Symptomatology"]== "Si"?1:0;
+                d.sensibles = d["Other pre-existing diseases"]+d["Photograph of the user"]+d["Symptomatology"];
+
+                d.xPos = [];
+                d.yPos = [];
+
+            })
+
+
+            var clases = d3.scaleQuantize()
+            .domain(d3.extent(datos, d=> d.personales))
             .range(["bajo", "medio", "alto"])
             ;
 
+    
 
-    var max_pop = d3.max(datos, d => d.Poblacion)
 
-
-    var xScale = d3.scaleLinear().domain(d3.extent(datos, d=> d.Penetracion));
-
-    var xScale = d3.scaleLinear().domain(d3.extent(datos, d=> d.Penetracion));
+    var xScale = d3.scaleLinear().domain(d3.extent(datos, d=> d.personales));
 
         isMobile?xScale.range([height*0.1, height*0.9]):xScale.range([width*0.1, width*0.9]);
 
     var rScale = isMobile?width/15:height/15;
 
 
-    var force = d3.forceSimulation(datos).force('forceX', d3.forceX(d => xScale(d.Penetracion)).strength(2))
+    var force = d3.forceSimulation(datos);
+
+    var rangosAxis =[];
+
+    function ajustaFuerza(variable){
+        
+        xScale.domain(d3.extent(datos, d=> d[variable]));
+        clases.domain(xScale.domain());
+
+            force.force('forceX', d3.forceX(d => xScale(d[variable])).strength(2))
             .force('forceY', d3.forceY(height/2).strength(0.1));
 
-    if(isMobile){
-        force
-            .force('forceY', d3.forceY(d => xScale(d.Penetracion)).strength(2))
-            .force('forceX', d3.forceX(width/1.8).strength(0.1))
-    }
+            if(isMobile){
+                force
+                    .force('forceY', d3.forceY(d => xScale(d[variable])).strength(2))
+                    .force('forceX', d3.forceX(width/1.8).strength(0.1))
+            }
             
             force.force('collide', d3.forceCollide(rScale + 3))
             .stop();
-        
-    var NUM_ITERATIONS = 120;
+                
+            var NUM_ITERATIONS = 120;
 
-    for (let i = 0; i < NUM_ITERATIONS; ++i) {
-        force.tick();
-    };
+            for (let i = 0; i < NUM_ITERATIONS; ++i) {
+                force.tick();
+            };
 
-    force.stop();
+            force.stop();
+
+            datos.forEach(d=>{
+                d.xPos[variable] = d.x;
+                d.yPos[variable] = d.y;
+            })
+
+             rangosAxis = [clases.domain()[0],
+            clases.thresholds()[0],
+            clases.thresholds()[1],
+            clases.domain()[1]];
+
+    }
+
+    ajustaFuerza("sensibles");
+    ajustaFuerza("ubicacion");
+    ajustaFuerza("personales");
+
+
+
 
     var circlesGroup = main.selectAll("g")
         .data(datos)
-        .join("g")
+        .join("g").attr("class", "nodos")
             .attr("transform", d=>"translate("+d.x+","+d.y+")");
 
         circlesGroup.append("circle")
         .attr("r", rScale)
-        .attr("class", d=>clasesAcceso(d.Penetracion));
+        .attr("fill", "silver");
         
     circlesGroup.append("text")
         .attr("class","paisLabel")
@@ -673,49 +722,44 @@ function beeSwarmRecoleccion(datos, cualGrafico){ // beeswarmPen
         .call(wrap,isMobile?60:80)
         ;
 
-        /* if(!isMobile){ circlesGroup.append("text")
-            .attr("class","paisSubLabel")
-            .text(d=>d3.format(".0%")(d.Penetracion*1000000))
-            .attr("dy",12)
-            .attr("font-size",11)
-            .style("fill", "black");
+        var axis = main.append("g").attr("class","axis")
+            .style("transform", isMobile?`translateX(${width*0.1}px`:`translateY(${height*0.95}px`);
 
-        } */
-        
-    var axis = main.append("g").attr("class","axis")
-        .style("transform", isMobile?`translateX(${width*0.1}px`:`translateY(${height*0.95}px`);
+         
 
-        var rangosAxis = [clasesAcceso.domain()[0],
-                            clasesAcceso.thresholds()[0],
-                            clasesAcceso.thresholds()[1],
-                            clasesAcceso.domain()[1]];
-
-        axis.selectAll("rect")
-            .data(clasesAcceso.range())
-            .join("rect")
-                .attr(isMobile?"y":"x", (d,i)=>xScale(rangosAxis[i]))
-                .attr(isMobile?"height":"width", (d,i)=> xScale(rangosAxis[i+1])-xScale(rangosAxis[i]))
-                .attr("class",d=>d)
-                .attr(isMobile?"width":"height",isMobile?3:18);
+                                console.log(rangosAxis);
 
 
-        axis.selectAll("text")
-            .data(clasesAcceso.range())
-            .join("text")
-                .attr(isMobile?"y":"x", (d,i)=>(xScale(rangosAxis[i])+xScale(rangosAxis[i+1]))/2)
-                .attr("dy",isMobile?0:14)
-                .attr("text-anchor",isMobile?"end":"middle")
-                .text(d=>d.toUpperCase());
+            axis.selectAll("rect")
+                .data(clases.range())
+                .join("rect")
+                     .attr(isMobile?"y":"x", (d,i)=>xScale(rangosAxis[i]))
+                    .attr(isMobile?"height":"width", (d,i)=> xScale(rangosAxis[i+1])-xScale(rangosAxis[i]))
+                    .attr("class",d=>d)
+                    .attr(isMobile?"width":"height",isMobile?3:18);
 
-        if(!isMobile){
-        axis.append("text")
-                .attr("text-anchor",isMobile?"end":"middle")
-                .text("Penetración")
-                .attr("dy",-5)
-                .attr("x",isMobile?0:width/2)
-                .style("opacity",0.7)
-                ;
-            }
+     
+            
+
+            axis.selectAll("text")
+                .data(clases.range())
+                .join("text")
+                    .attr(isMobile?"y":"x", (d,i)=>(xScale(rangosAxis[i])+xScale(rangosAxis[i+1]))/2)
+                    .attr("dy",isMobile?0:14)
+                    .attr("dx",isMobile?-3:0)
+                    .attr("text-anchor",isMobile?"end":"middle")
+                    .text(d=>d.toUpperCase());
+
+    if(!isMobile){
+    axis.append("text")
+            .attr("text-anchor",isMobile?"end":"middle")
+               .text("Recolección de datos")
+               .attr("dy",-5)
+            .attr("x",isMobile?0:width/2)
+            .style("opacity",0.7)
+            ;
+        }
+
 
 
 } // fin beeswarm recoleccion
@@ -786,8 +830,20 @@ function scrollyTelling(containerNumber,step,entra){
 
         switch (step) {
 			case 0: // testeos y positivos 
-              
+                    d3.select("#grafico4 svg").selectAll(".nodos").transition().duration("400")
+                    .attr("transform",d=>"translate(" + d.xPos["personales"] + "," + d.yPos["personales"]+")");
 			break;
+
+            case 1: // testeos y positivos 
+                    d3.select("#grafico4 svg").selectAll(".nodos").transition().duration("400")
+                                    .attr("transform",d=>"translate(" + d.xPos["ubicacion"] + "," + d.yPos["ubicacion"]+")");
+			break;
+
+            case 2: // testeos y positivos 
+                    d3.select("#grafico4 svg").selectAll(".nodos").transition().duration("400")
+                    .attr("transform",d=>"translate(" + d.xPos["sensibles"] + "," + d.yPos["sensibles"]+")");
+			break;
+
       
 	    }
               

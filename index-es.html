@@ -67,7 +67,7 @@ svg .legend circle{
     stroke-width: 2px;
     stroke: #f1f1f1;
     fill:#ddd;
-]}
+}
 
 svg .axis rect{
     stroke-width: 0px;
@@ -195,16 +195,16 @@ svg .alto{
         <!-- acá van los textos de cada paso -->
         <article>
             <div class='step' data-index='0'>
-			    <p>Estas son las apps mas xxx                </p>
+			    <p>En cuanto a <b>datos personales</b> (edad, documento, género), las aplicaciones se ubican en el siguiente espectro en cuanto a la cantidad de datos que recolectan</p>
             </div>
            
             <div class='step' data-index='1'>
-			    <p>Estas son las apps mas xxx                </p>
+			    <p>En cuanto a <b>datos de ubicación</b> (dirección, ubicación), las aplicaciones se ubican en el siguiente espectro en cuanto a la cantidad de datos que recolectan</p>
             </div>
 
 
             <div class='step' data-index='2'>
-			    <p>Estas son las apps mas xxx                </p>
+			    <p>En cuanto a <b>datos sensibles</b> (Fotografía, datos de salud), las aplicaciones se ubican en el siguiente espectro en cuanto a la cantidad de datos que recolectan</p>
             </div>
 
         </article>
@@ -254,7 +254,9 @@ setTimeout(() => {
     Promise.all([
         d3.csv(textos.lang + "/paises.csv"),
         d3.csv(textos.lang + "/apps_downloads.csv"),
-        d3.csv(textos.lang + "/seguridad.csv")
+        d3.csv(textos.lang + "/seguridad.csv"),
+        d3.csv(textos.lang + "/recoleccion.csv")
+
     ]).then(function(files) {
        controller(files);
     });
