@@ -142,20 +142,20 @@ svg .alto{
         <!-- acá van los textos de cada paso -->
         <article>
             <div class='step' data-index='0'>
-			    <p>Si agrupamos las apps por sus características de seguridad podemos ver tres grandes grupos:</p>
+			    <p>Si agrupamos las apps por sus características de seguridad podemos ver tres grandes grupos: </p>
             </div>
            
             <div class='step' data-index='1'>
-			    <p>Las que <b>no informan</b> sobre las medidas de seguridad, el <b>codigo es privativo</b>, la información se guarda en <b>servidores privados</b> y <b>fuera del país</b>, como:</p>
+			    <p>Las que <b>no informan</b> sobre las medidas de seguridad, el <b>codigo es privativo</b>, la información se guarda en <b>servidores privados</b> y <b>fuera del país</b>, como: <span id="apps1"></span></p>
             </div>
 
 
-            <div class='step' data-index='1'>
-			    <p>Las que <b>si informan</b> sobre las medidas de seguridad, el <b>codigo es abierto</b>, la información se guarda en <b>servidores públicos</b> y <b>en el país</b>, como:</p>
+            <div class='step' data-index='2'>
+			    <p>Las que <b>si informan</b> sobre las medidas de seguridad, el <b>codigo es abierto</b>, la información se guarda en <b>servidores públicos</b> y <b>en el país</b>, como: <span id="apps2"></span></p>
             </div>
 
             <div class='step' data-index='3'>
-			    <p>Las que se encuentran en el medio, con una combinación de las variantes, como:</p>
+			    <p>Las que se encuentran en el medio, con una combinación de las variantes, como: <span id="apps3"></span></p>
             </div>
 
         </article>
@@ -231,7 +231,7 @@ svg .alto{
  <script>
 	
 	//********************* CARGA DATOS ************
-
+setTimeout(()=>{
 Promise.all([
     d3.csv("paises.csv"),
     d3.csv("apps_downloads.csv"),
@@ -351,12 +351,6 @@ svg
 beeSwarmAcceso(dataPaises, "#gInterno1")
 beeSwarmPenetracion(dataPenetracion, "#gInterno2")
 sankeySeguridad(dataSeguridad, "#gInterno3")
-
-
-//alluvialSeguridad(dataPaises, "#gInterno0")
-
-
-
 
 
 function beeSwarmAcceso(datos, cualGrafico){ // beeswarm
@@ -492,7 +486,7 @@ function beeSwarmPenetracion(datos, cualGrafico){ // beeswarmPen
 
             isMobile?xScale.range([height*0.1, height*0.9]):xScale.range([width*0.1, width*0.9]);
 
-        var rScale = isMobile?width/20:height/20;
+        var rScale = isMobile?width/15:height/15;
 
 
         var force = d3.forceSimulation(datos).force('forceX', d3.forceX(d => xScale(d.Penetracion)).strength(2))
@@ -603,9 +597,7 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
                         }; 
                     }).slice(0,5);
 
-                    console.log(d3.nest()
-                        .key(function(d) { return d[0]; })
-                        .entries(csv));
+       
 
                 var opciones = ["si", "no", "ns/nc", "No se especifica.", "publicos", "En el país", "privados", "Fuera del País"];
 
@@ -759,7 +751,7 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
                         .attr("fill", "none")
                         .attr("stroke", "silver")//d => `${d.gradient}`)
                         .attr("stroke-width", d => d.width)
-                        .attr("stroke-opacity", 0.7)
+                        .attr("stroke-opacity", 0.5)
                         .attr("d", d3.sankeyLinkHorizontal())
                         .attr("r", d=>console.log(d))
 
@@ -812,13 +804,49 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
 
 function scrollyTelling(containerNumber,step,entra){
 	if(containerNumber == 1){  //GRAFICO PRIMER SCROLLY
+        console.log(step);
 		switch (step) {
+
 			case 0: // seguridad
-                    d3.selectAll(".link").transition().duration(400).attr("stroke-opacity",0.7)
+                    d3.selectAll(".link").transition().duration(400).attr("stroke-opacity",0.5);
 			break;
+
             case 1: // seguridad
-                    d3.selectAll(".link").filter(d=>(d.source.layer == 1 && d.target.group == "no" && d.source.group == "no") || (d.source.layer == 2 && d.target.group == "privados" && d.source.group == "no") ||  (d.source.layer == 3 && d.target.group == "Fuera del País" && d.source.group == "privados") ).transition().duration(400).attr("stroke-opacity",1)
+                    d3.selectAll(".link").transition().duration(400)
+                    .attr("stroke-opacity",d=>{
+                        if (d.source.layer == 1 && d.target.group == "no" && d.source.group == "no") return 1;
+                        if (d.source.layer == 2 && d.target.group == "privados" && d.source.group == "no") return 1;
+                        if (d.source.layer == 3 && d.target.group == "Fuera del País" && d.source.group == "privados") return 1;
+                        return 0.5;
+                    });
 			break;
+
+            case 2: // seguridad
+                    d3.selectAll(".link").transition().duration(400)
+                    .attr("stroke-opacity",d=>{
+                        if (d.source.layer == 1 && d.target.group == "si" && d.source.group == "si") return 1;
+                        if (d.source.layer == 2 && d.target.group == "publicos" && d.source.group == "si") return 1;
+                        if (d.source.layer == 3 && d.target.group == "En el país" && d.source.group == "publicos") return 1;
+                        return 0.5;
+                    });
+			break;
+
+            case 3: // seguridad
+                    d3.selectAll(".link").transition().duration(400)
+                    .attr("stroke-opacity",d=>{
+                        if (d.source.layer == 1 && d.target.group == "no" && d.source.group == "no") return 0.5;
+                        if (d.source.layer == 2 && d.target.group == "privados" && d.source.group == "no") return 0.5;
+                        if (d.source.layer == 3 && d.target.group == "Fuera del País" && d.source.group == "privados") return 0.5;
+                        if (d.source.layer == 1 && d.target.group == "si" && d.source.group == "si") return 0.5;
+                        if (d.source.layer == 2 && d.target.group == "publicos" && d.source.group == "si") return 0.5;
+                        if (d.source.layer == 3 && d.target.group == "En el país" && d.source.group == "publicos") return 0.5;
+                        if (d.source.layer != 0 ) return 1;
+                        return 0.5;
+                    });
+			break;
+
+         
+   
       
 	    }
 
@@ -879,7 +907,9 @@ function scrollyTelling(containerNumber,step,entra){
                 }
 
 
-});
+})
+
+},1000);
 
 </script>
 
