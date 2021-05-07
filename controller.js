@@ -919,7 +919,7 @@ function scrollyTelling(containerNumber,step,entra){
          d3.select("#gInterno5")
             .selectAll(".rows .cell")
                 .transition().duration(300)
-                    .style("fill-opacity",function(d){return (step+1)!=+this.id?0.3:0.6});
+                    .style("fill-opacity",function(d){return (step+1)!=+this.id?0:0.4});
 
 
     }
