@@ -52,7 +52,7 @@ d3.selectAll(".contenedorGrafico")
         .each(function(d,i){
                 d3.select(this).append("svg").datum(d3.select(this)._groups[0][0].parentNode.id.slice(-1))});
 
-var svg = d3.selectAll("svg")
+var svg = d3.selectAll("svg"),yScaleConsent
     ,
     margin = isMobile ? {top: 15, right: 15, bottom: 15, left: 15} : {top: 15, right: 15, bottom: 15, left: 15},
     widthReal =  +d3.select('#grafico1').style('width').slice(0, -2),
@@ -76,7 +76,9 @@ var svg = d3.selectAll("svg")
  var dataPaises = files[0],
     dataPenetracion = files[1],
     dataSeguridad = files[2],
-    dataRecoleccion = files[3];
+    dataRecoleccion = files[3],
+    dataConsent = files[4];
+    ;
 
 
  dataPaises.forEach(element => {
@@ -110,6 +112,8 @@ beeSwarmPenetracion(dataPenetracion, "#gInterno2")
 sankeySeguridad(dataSeguridad, "#gInterno3")
 
 beeSwarmRecoleccion(dataRecoleccion, "#gInterno4")
+
+vizConsent(dataConsent, "#gInterno5")
 
 
 
@@ -642,7 +646,7 @@ function beeSwarmRecoleccion(datos, cualGrafico){ // beeswarmAcceso
 
             var clases = d3.scaleQuantize()
             .domain(d3.extent(datos, d=> d.personales))
-            .range(["bajo", "medio", "alto"])
+            .range(["pocos", "algunos", "muchos"])
             ;
 
     
@@ -766,6 +770,60 @@ function beeSwarmRecoleccion(datos, cualGrafico){ // beeswarmAcceso
 
 
 
+function vizConsent(datos, cualGrafico){
+
+    
+    var main = d3.select(cualGrafico);
+            height = main._groups[0][0].parentElement.height.baseVal.value-margin.top-margin.bottom;
+            width = main._groups[0][0].parentElement.width.baseVal.value-margin.left-margin.right;
+
+
+            yScaleConsent = d3.scaleBand()
+                           .domain(Object.values(datos).map(d=>d.app))
+                           .range([0, height]);
+
+            var xScale = d3.scaleBand()
+                           .domain(datos.columns)
+                           .range([0, width]);
+
+            
+            var color = d3.scaleOrdinal()
+                           .domain(["Si", "No", "Click en box", "Asumido"])
+                           .range(["#6b9b2a","#ff5d12","#6b9b2a","#ff5d12"]);
+
+            var rows = main.selectAll("g")
+                .data(datos)
+                .join("g")
+                    .attr("class","rows")
+                    .attr("transform",d=>"translate(0,"+yScaleConsent(d.app)+")");
+
+            datos.columns.forEach((e,i) => {
+                if(i){
+                rows
+                    .append("rect")
+                    .attr("x",d=>xScale(e))
+                    .attr("height",yScaleConsent.bandwidth())
+                    .attr("width",xScale.bandwidth())
+                    .attr("class","cell")
+                    .attr("id",i)
+                    .attr("fill",d=>color(d[e]));
+                }
+
+                rows
+                    .append("text")
+                    .attr("x",i?xScale(e)+xScale.bandwidth()/2:xScale(e)+xScale.bandwidth()-5)
+                    .attr("text-anchor",i?"middle":"end")
+                    .attr("y",d=>yScaleConsent.bandwidth()/2+6)
+                    .text(d=>d[e]);
+
+            });
+
+            
+                
+           
+}
+
+
 
 
 
@@ -849,12 +907,20 @@ function scrollyTelling(containerNumber,step,entra){
               
     }else {
 
-        switch (step) {
-			case 0: // testeos y positivos 
-              
-			break;
-      
-	    }
+        var dataOrdenada = dataConsent.sort((a, b) => d3.descending(a[dataConsent.columns[step+1]], b[dataConsent.columns[step+1]]));
+
+       yScaleConsent.domain(dataOrdenada.map(d=>d.app))
+
+        d3.select("#gInterno5")
+            .selectAll(".rows")
+                .transition().duration(300)
+                    .attr("transform",d=>"translate(0,"+yScaleConsent(d.app)+")");
+
+         d3.select("#gInterno5")
+            .selectAll(".rows .cell")
+                .transition().duration(300)
+                    .style("fill-opacity",function(d){return (step+1)!=+this.id?0.3:0.6});
+
 
     }
         

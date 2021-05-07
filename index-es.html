@@ -93,6 +93,28 @@ svg .alto{
 }
 
 
+svg .muchos{
+    stroke: #ff5d12;
+    fill:#ff5d1260
+}
+
+svg .algunos{
+    stroke: #6b9b2a;
+    fill:#6b9b2a60
+}
+
+svg .pocos{
+    stroke: #069799;
+    fill:#06979960
+}
+
+
+svg .cell{
+    fill-opacity: 0.3;
+    stroke-width: 1px;
+    stroke: #f1f1f1
+}
+
 span.bajo{
     background-color: #ff5d12;
     font-weight: 700;
@@ -237,26 +259,30 @@ span.alto{
 <section id='scrolly3'>
     <div class='scrolly'>
         <!-- aca va el grafico que va a quedar fijo -->
-        <figure id="grafico4" class='sticky contenedorGrafico' >
-            <h2>La importancia del consentimiento en los datos recogidos por las apps</h2>
+        <figure id="grafico5" class='sticky contenedorGrafico' >
+            <h2 id="grafico5.title"></h2>
+            <p id="grafico5.description"></p>
             <div class="grafico"></div>
         </figure>
 
         <!-- acá van los textos de cada paso -->
         <article>
             <div class='step' data-index='0'>
-			    <p>Estas son las apps mas xxx                </p>
+			    <p>Is the data collection / processing preceded by a clear affirmative act establishing a freely given, specific, informed and unambiguous indication of agreement by the data subject regarding the collection and / or processing of personal data related to it or the?</p>
             </div>
            
             <div class='step' data-index='1'>
-			    <p>Estas son las apps mas xxx                </p>
+			    <p>How is consent obtained?</p>
             </div>
 
 
             <div class='step' data-index='2'>
-			    <p>Estas son las apps mas xxx                </p>
+			    <p>Does the initiative allow users to have effective control over uses?</p>
             </div>
 
+            <div class='step' data-index='3'>
+			    <p>Can the interested party withdraw their consent to the initiative at any time?</p>
+            </div>
         </article>
 		
 	</div>
@@ -274,7 +300,9 @@ setTimeout(() => {
         d3.csv(textos.lang + "/paises.csv"),
         d3.csv(textos.lang + "/apps_downloads.csv"),
         d3.csv(textos.lang + "/seguridad.csv"),
-        d3.csv(textos.lang + "/recoleccion.csv")
+        d3.csv(textos.lang + "/recoleccion.csv"),
+        d3.csv(textos.lang + "/consent.csv")
+
 
     ]).then(function(files) {
        controller(files);

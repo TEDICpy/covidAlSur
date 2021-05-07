@@ -25,7 +25,10 @@ window.textos = {
   "grafico3.description": "Si agrupamos las apps por los diferentes ejes que consideramos en cuanto a seguridad, se generan también, tres grupos principales:",
 
   "grafico4.title": "¿Qué datos de usario recolectan?",
-  "grafico4.description": "Agrupando los datos que recolectan en tres grandes grupos, podemos analizar como se posicionan las diferentes apps respecto a la recolección de los mismos:"
+  "grafico4.description": "Agrupando los datos que recolectan en tres grandes grupos, podemos analizar como se posicionan las diferentes apps respecto a la recolección de los mismos:",
+
+  "grafico5.title": "La importancia del consentimiento en los datos recogidos por las apps",
+  "grafico5.description": "Qué sería mejor o no del punto de vista de la protección de los datos"
 
   //"grafico1.description": "Si comparamos los países por población (diámetro del círculo) y por acceso a internet (color y posición) vemos que una parte considerable de los habitantes de latinoamérica se encuentra en el rango <span class='medio'>medio</span>/<span class='alto'>alto</span> de acceso. Sin embargo, algunos países se encuentran relegados con acceso <span class='bajo'>bajo</span>"
 }
