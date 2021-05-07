@@ -1027,7 +1027,9 @@ function legendCircle(context){
                     while (word = words.pop()) {
                         line.push(word);
                         tspan.text(line.join(" "));
-                            if (tspan.node().getComputedTextLength() > width) {
+                        console.log(line);
+
+                            if (tspan.node().getComputedTextLength() > width && line.length>1) {
                                 line.pop();
                                 tspan.text(line.join(" "));
                                 line = [word];
