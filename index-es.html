@@ -320,7 +320,7 @@ for (const key in textos) {
     if (Object.hasOwnProperty.call(textos, key)) {
         let htmlElement = document.getElementById(key);
         if (htmlElement) {
-            htmlElement.textContent = textos[key];
+            htmlElement.innerHTML = textos[key];
         }
     }
 }

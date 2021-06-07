@@ -37,10 +37,10 @@ window.textos = {
 
   "grafico5.title": "La importancia del consentimiento en los datos recogidos por las iniciativas",
   "grafico5.description": "Qué sería mejor o no del punto de vista de la protección de los datos",
-  "grafico5.description": 'Is the data collection / processing preceded by a clear affirmative act establishing a freely given, specific, informed and unambiguous indication of agreement by the data subject regarding the collection and / or processing of personal data related to it or the?',
-  "grafico5.description": 'How is consent obtained?',
-  "grafico5.description": 'Does the initiative allow users to have effective control over uses?',
-  "grafico5.description": 'Can the interested party withdraw their consent to the initiative at any time?'
+  "grafico5.step0": 'Is the data collection / processing preceded by a clear affirmative act establishing a freely given, specific, informed and unambiguous indication of agreement by the data subject regarding the collection and / or processing of personal data related to it or the?',
+  "grafico5.step1": 'How is consent obtained?',
+  "grafico5.step2": 'Does the initiative allow users to have effective control over uses?',
+  "grafico5.step3": 'Can the interested party withdraw their consent to the initiative at any time?'
 
   //"grafico1.description": "Si comparamos los países por población (diámetro del círculo) y por acceso a internet (color y posición) vemos que una parte considerable de los habitantes de latinoamérica se encuentra en el rango <span class='medio'>medio</span>/<span class='alto'>alto</span> de acceso. Sin embargo, algunos países se encuentran relegados con acceso <span class='bajo'>bajo</span>"
 }
