@@ -113,7 +113,7 @@
         @media only screen and (min-height: 650px) and (min-width: 768px) {
             #contenedorGrafico.sticky, .contenedorGrafico.sticky {
                 top: 18vh;
-                height: 62vh;
+                height: 60vh;
             }
 
         }

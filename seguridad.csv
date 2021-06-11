@@ -1,0 +1,16 @@
+Does the application transfer data securely (HTTPS)?,Does the application inform about security measures?,Is the application code open?,Is the information stored on public or private servers?,Is the information stored on servers inside or outside the country?,app,Pais
+si,no,no,privados,En el país,EDUS,Costa Rica
+si,no,no,privados,Fuera del País,Alerta Guate,Guatemala
+si,no,no,privados,Fuera del País,CoronApp (Co),Colombia
+si,no,no,privados,Fuera del País,COVID-19MX,Mexico
+si,no,no,privados,Fuera del País,CUIDAR,Argentina
+si,no,no,privados,Fuera del País,Dr. Sammy Bot!,Bolivia
+si,no,no,privados,Fuera del País,Perú en tus manos,Perú
+si,no,si,ns/nc,No se especifica,Protégete con salud,Panamá
+si,no,si,privados,En el país,Bolivia Segura,Bolivia
+si,no,si,publicos,En el país,Covid-19 PY,Paraguay
+si,no,si,publicos,En el país,Ecuador ASI,Ecuador
+si,si,no,ns/nc,No se especifica,Salud en Cochabamba,Bolivia
+si,si,no,privados,Fuera del País,CoronApp (Ch),Chile
+si,si,si,ns/nc,En el país,Coronavírus - SUS,Brasil
+si,si,si,publicos,En el país,Coronavirus UY,Uruguay
