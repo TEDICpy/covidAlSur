@@ -887,17 +887,17 @@ function scrollyTelling(containerNumber,step,entra){
 	}else if(containerNumber == 2){
 
         switch (step) {
-			case 0: // testeos y positivos 
+			case 0:  
                     d3.select("#grafico4 svg").selectAll(".nodos").transition().duration("400")
                     .attr("transform",d=>"translate(" + d.xPos["personales"] + "," + d.yPos["personales"]+")");
 			break;
 
-            case 1: // testeos y positivos 
+            case 1:  
                     d3.select("#grafico4 svg").selectAll(".nodos").transition().duration("400")
                                     .attr("transform",d=>"translate(" + d.xPos["ubicacion"] + "," + d.yPos["ubicacion"]+")");
 			break;
 
-            case 2: // testeos y positivos 
+            case 2:  
                     d3.select("#grafico4 svg").selectAll(".nodos").transition().duration("400")
                     .attr("transform",d=>"translate(" + d.xPos["sensibles"] + "," + d.yPos["sensibles"]+")");
 			break;
