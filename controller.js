@@ -842,7 +842,7 @@ function scrollyTelling(containerNumber,step,entra){
 		switch (step) {
 
 			case 0: // seguridad
-                    d3.selectAll(".link").transition().duration(400).attr("stroke-opacity",0.5);
+                    d3.selectAll(".link").transition().duration(400).attr("stroke-opacity",0.7);
 			break;
 
             case 1: // seguridad
@@ -851,7 +851,7 @@ function scrollyTelling(containerNumber,step,entra){
                         if (d.source.layer == 1 && d.target.group == "no" && d.source.group == "no") return 1;
                         if (d.source.layer == 2 && d.target.group == "privados" && d.source.group == "no") return 1;
                         if (d.source.layer == 3 && d.target.group == "Fuera del País" && d.source.group == "privados") return 1;
-                        return 0.5;
+                        return 0.2;
                     });
 			break;
 
@@ -861,21 +861,21 @@ function scrollyTelling(containerNumber,step,entra){
                         if (d.source.layer == 1 && d.target.group == "si" && d.source.group == "si") return 1;
                         if (d.source.layer == 2 && d.target.group == "publicos" && d.source.group == "si") return 1;
                         if (d.source.layer == 3 && d.target.group == "En el país" && d.source.group == "publicos") return 1;
-                        return 0.5;
+                        return 0.2;
                     });
 			break;
 
             case 3: // seguridad
                     d3.selectAll(".link").transition().duration(400)
                     .attr("stroke-opacity",d=>{
-                        if (d.source.layer == 1 && d.target.group == "no" && d.source.group == "no") return 0.5;
-                        if (d.source.layer == 2 && d.target.group == "privados" && d.source.group == "no") return 0.5;
-                        if (d.source.layer == 3 && d.target.group == "Fuera del País" && d.source.group == "privados") return 0.5;
-                        if (d.source.layer == 1 && d.target.group == "si" && d.source.group == "si") return 0.5;
-                        if (d.source.layer == 2 && d.target.group == "publicos" && d.source.group == "si") return 0.5;
-                        if (d.source.layer == 3 && d.target.group == "En el país" && d.source.group == "publicos") return 0.5;
+                        if (d.source.layer == 1 && d.target.group == "no" && d.source.group == "no") return 0.2;
+                        if (d.source.layer == 2 && d.target.group == "privados" && d.source.group == "no") return 0.2;
+                        if (d.source.layer == 3 && d.target.group == "Fuera del País" && d.source.group == "privados") return 0.2;
+                        if (d.source.layer == 1 && d.target.group == "si" && d.source.group == "si") return 0.2;
+                        if (d.source.layer == 2 && d.target.group == "publicos" && d.source.group == "si") return 0.2;
+                        if (d.source.layer == 3 && d.target.group == "En el país" && d.source.group == "publicos") return 0.2;
                         if (d.source.layer != 0 ) return 1;
-                        return 0.5;
+                        return 0.2;
                     });
 			break;
 
