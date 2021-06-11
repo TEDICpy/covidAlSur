@@ -54,7 +54,7 @@ d3.selectAll(".contenedorGrafico")
 
 var svg = d3.selectAll("svg"),yScaleConsent
     ,
-    margin = isMobile ? {top: 15, right: 15, bottom: 15, left: 15} : {top: 15, right: 15, bottom: 15, left: 15},
+    margin = isMobile ? {top: 15, right: 15, bottom: 15, left: 15} : {top: 15, right: 15, bottom: 35, left: 15},
     widthReal =  +d3.select('#grafico1').style('width').slice(0, -2),
     heightReal = +d3.select('#grafico1').style('height').slice(0, -2);
 
