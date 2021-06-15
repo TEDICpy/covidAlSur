@@ -1,0 +1,16 @@
+Pais,app,DNI,Age,Gender,Address,Location,Photograph of the user,Symptomatology,Other pre-existing diseases
+Argentina,CUIDAR,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes
+Bolivia,Bolivia Segura,Yes,Yes,No,Yes,Yes,No,Yes,No
+Bolivia,Dr. Sammy Bot!,Yes,No,No,No,Yes,No,Yes,Yes
+Bolivia,Salud en Cochabamba,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes
+BraYesl,Coronavírus - SUS,No,No,No,No,Yes,No,Yes,No
+Chile,CoronApp (Ch),Yes,Yes,Yes,Yes,Yes,No,Yes,Yes
+Colombia,CoronApp (Co),Yes,No,No,No,Yes,No,Yes,No
+Costa Rica,EDUS,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes
+Ecuador,Ecuador AYes,No,Yes,Yes,No,Yes,No,No,No
+Guatemala,Alerta Guate,No,No,No,No,Yes,No,No,No
+Mexico,COVID-19MX,No,Yes,Yes,Yes,Yes,No,Yes,Yes
+Panamá,Protégete con salud,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+Paraguay,Covid-19 PY,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes
+Perú,Perú en tus manos,Yes,Yes,Yes,No,Yes,No,Yes,Yes
+Uruguay,Coronavirus UY,Yes,Yes,Yes,Yes,No,No,Yes,Yes
