@@ -1,4 +1,5 @@
-window.textos = {
+window.textosLib = window.textosLib || {};
+window.textosLib.es = {
   lang: 'es',
   d3: {
     "decimal": ",",

@@ -12,12 +12,14 @@
 
       <link rel="stylesheet" href="scrolly.css">
       <script src="es/textos.js"></script>
+      <script src="en/textos.js"></script>
       <script src="controller.js"></script>
   
 </head>
 
 <body>
       <script>
+    window.textos = window.textosLib[ location.search.split('=')[1] ];
     d3.timeFormatDefaultLocale(textos.d3);
     d3.formatDefaultLocale(textos.d3);
 
@@ -34,25 +36,14 @@
 <style>
 body{
     font-family: sans-serif;
-    padding-top: 10%;
-    background-color: #fff8fc;
 }
 section {
     max-width: 1000px;
     margin:auto;
 }
 
-figure{
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-}
-
-figure.contenedorGrafico  {
+figure.contenedorGrafico {
     padding: 10px;
-}
-
-#contenedorGrafico.sticky,.contenedorGrafico.sticky{
-    background-color: #fff;
-
 }
 
 svg .paisLabel, svg .paisSubLabel{
