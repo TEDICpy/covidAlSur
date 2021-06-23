@@ -17,9 +17,9 @@ window.textosLib.en = {
   },
 
   "grafico1.title": "Internet access and country population",
-  "grafico1.description": "Si comparamos los países por población (diámetro del círculo) y por acceso a internet (color y posición) vemos que una parte considerable de los habitantes de latinoamérica se encuentra en el rango medio/alto de acceso. Sin embargo, algunos países se encuentran relegados con acceso bajo",
+  "grafico1.description": "Si comparamos los países por población (diámetro del círculo) y por acceso a Internet (color y posición) vemos que una parte considerable de los habitantes de latinoamérica se encuentra en el rango medio/alto de acceso. Sin embargo, algunos países se encuentran relegados con acceso bajo",
 
-  "grafico2.title": "Downloads and internet access",
+  "grafico2.title": "Downloads and Internet access",
   "grafico2.description": "Basándonos en la cantidad de descargas de cada iniciativa, relativas a la población de cada país, podemos también comparar la llegada que tienen las iniciativas a la población entre países. Aquí se ve una división aún más grande entre iniciativas con alta incidencia y iniciativas con mucha menor penetración.",
 
   "grafico3.title": "¿Cuánta seguridad ofrecen las iniciativas para los datos que recogen?",
