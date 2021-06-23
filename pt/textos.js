@@ -35,8 +35,8 @@ window.textosLib.pt = {
   "grafico4.step1": "En cuanto a <b>datos de ubicación</b> (dirección, ubicación), las aplicaciones se ubican en el siguiente espectro en cuanto a la cantidad de datos que recolectan",
   "grafico4.step2": "En cuanto a <b>datos sensibles</b> (fotografía, datos de salud), las aplicaciones se ubican en el siguiente espectro en cuanto a la cantidad de datos que recolectan",
 
-  "grafico5.title": "AAA La importancia del consentimiento en los datos recogidos por las iniciativas",
-  "grafico5.description": "Qué sería mejor o no del punto de vista de la protección de los datos",
+  "grafico5.title": "La importancia del consentimiento en los datos recogidos por las iniciativas",
+  "grafico5.description": "Qué sería mejor o no desde el punto de vista de la protección de los datos",
   "grafico5.step0": 'A coleta/processamento de dados é precedida de um ato claro  afirmativo que estabeleça uma indicação livre, específica, informada e sem ambiguidades de concordância do titular dos dados quanto à coleta e/ou processamento de seus dados pessoais?',
   "grafico5.step1": 'Como o consentimento é obtido?',
   "grafico5.step2": 'A iniciativa permite que os usuários tenham controle efetivo sobre os usos?',
