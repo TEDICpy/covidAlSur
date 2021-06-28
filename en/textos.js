@@ -17,30 +17,30 @@ window.textosLib.en = {
   },
 
   "grafico1.title": "Internet access and country population",
-  "grafico1.description": "Si comparamos los países por población (diámetro del círculo) y por acceso a Internet (color y posición) vemos que una parte considerable de los habitantes de latinoamérica se encuentra en el rango medio/alto de acceso. Sin embargo, algunos países se encuentran relegados con acceso bajo",
+  "grafico1.description": "If we compare the countries by population (diameter of the circle) and by internet access (color and position) we see that a considerable part of the inhabitants of Latin America is in the medium/high range of access. However, some countries are relegated, presenting low access",
 
-  "grafico2.title": "Downloads and Internet access",
-  "grafico2.description": "Basándonos en la cantidad de descargas de cada iniciativa, relativas a la población de cada país, podemos también comparar la llegada que tienen las iniciativas a la población entre países. Aquí se ve una división aún más grande entre iniciativas con alta incidencia y iniciativas con mucha menor penetración.",
+  "grafico2.title": "Downloads and internet access",
+  "grafico2.description": "Based on the amount of downloads of each initiative in relation to the total population of the country, we can also compare the penetration of the initiatives between countries. Here we can see an even greater division between initiatives with a high incidence and initiatives with a much lower penetration.",
 
-  "grafico3.title": "¿Cuánta seguridad ofrecen las iniciativas para los datos que recogen?",
-  "grafico3.description": "Si agrupamos las iniciativas por los diferentes ejes que consideramos en cuanto a seguridad, se generan también, tres grupos principales:",
-  "grafico3.step0": 'Si agrupamos las iniciativas por sus características de seguridad podemos ver tres grandes grupos: ',
-  "grafico3.step1": 'Las que <b>no informan</b> sobre las medidas de seguridad, el <b>codigo es privativo</b>, la información se guarda en <b>servidores privados</b> y <b>fuera del país</b>, como: <span id="apps1"></span>',
-  "grafico3.step2": 'Las que <b>sí informan</b> sobre las medidas de seguridad, el <b>codigo es abierto</b>, la información se guarda en <b>servidores públicos</b> y <b>en el país</b>, como: <span id="apps2"></span>',
-  "grafico3.step3": 'Las que se encuentran en el medio, con una combinación de las variantes, como: <span id="apps3"></span>',
+  "grafico3.title": "How much security do the initiatives offer regarding the data they collect?",
+  "grafico3.description": "If we organize the initiatives according to the different axes that we consider in terms of security, we can see three main groups:",
+  "grafico3.step0": 'If we organize the initiatives by their security characteristics we can see three large groups: ',
+  "grafico3.step1": 'Those that <b>do not inform</b> about the security measures, the <b>code is proprietary</b>, the information is stored in <b>private servers</b> and <b>outside the country</b>, such as: <span id="apps1"></span>',
+  "grafico3.step2": 'Those that <b>do inform</b> about the security measures, the <b>code is open</b>, the information is stored in <b>public servers</b> and <b>inside the country</b>, such as: <span id="apps2"></span>',
+  "grafico3.step3": 'Those in the middle, with a combination of the variables, such as: <span id="apps3"></span>',
 
-  "grafico4.title": "¿Qué datos de usario recolectan?",
-  "grafico4.description": "Agrupando los datos que recolectan en tres grandes grupos, podemos analizar como se posicionan las diferentes iniciativas respecto a la recolección de los mismos:",
-  "grafico4.step0": "En cuanto a <b>datos personales</b> (edad, documento, género), las aplicaciones se ubican en el siguiente espectro en cuanto a la cantidad de datos que recolectan",
-  "grafico4.step1": "En cuanto a <b>datos de ubicación</b> (dirección, ubicación), las aplicaciones se ubican en el siguiente espectro en cuanto a la cantidad de datos que recolectan",
-  "grafico4.step2": "En cuanto a <b>datos sensibles</b> (Fotografía, datos de salud), las aplicaciones se ubican en el siguiente espectro en cuanto a la cantidad de datos que recolectan",
+  "grafico4.title": "What user data do they collect?",
+  "grafico4.description": "By organizing the kind of data collected into three groups, we can analyze how the different initiatives are positioned regarding data collection:",
+  "grafico4.step0": "Regarding <b>personal data</b> (age, ID, gender), the apps are located in the following spectrum according to the amount of data they collect",
+  "grafico4.step1": "Regarding <b>location data</b> (address, location), the apps are located in the following spectrum according to the amount of data they collect",
+  "grafico4.step2": "Regarding <b>sensitive data</b> (user photo, health data), the apps are located in the following spectrum according to the amount of data they collect",
 
 
-  "grafico5.title": "La importancia del consentimiento en los datos recogidos por las iniciativas",
-  "grafico5.description": "Qué sería mejor o no del punto de vista de la protección de los datos",
-  "grafico5.step0": 'Is the data collection / processing preceded by a clear affirmative act establishing a freely given, specific, informed and unambiguous indication of agreement by the data subject regarding the collection and / or processing of personal data related to it or the?',
+  "grafico5.title": "The importance of consent regarding the data collected by the initiatives",
+  "grafico5.description": "What would be better (and what not) from a data protection point of view",
+  "grafico5.step0": 'Is the data collection/processing preceded by a clear affirmative act establishing a freely given, specific, informed and unambiguous indication of agreement by the data subject regarding the collection and/or processing of personal data related to her or him?',
   "grafico5.step1": 'How is consent obtained?',
-  "grafico5.step2": 'Does the initiative allow users to have effective control over uses?',
+  "grafico5.step2": 'Does the initiative allow users to have effective control over the use of their data?',
   "grafico5.step3": 'Can the interested party withdraw their consent to the initiative at any time?'
 
 }

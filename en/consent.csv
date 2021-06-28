@@ -1,16 +1,16 @@
 app,"Is the data collection / processing preceded by a clear affirmative act establishing a freely given, specific, informed and unambiguous indication of agreement by the data subject regarding the collection and / or processing of personal data related to it or the?",How is consent obtained?,Does the initiative allow users to have effective control over uses?,Can the interested party withdraw their consent to the initiative at any time?
-Alerta Guate,No,Asumido,No,No
+Alerta Guate,No,Assumed,No,No
 Bolivia Segura,No,Click en box,No,No
-CoronApp (Ch),Si,Click en box,Si,Si
+CoronApp (Ch),Yes,Click en box,Yes,Yes
 CoronApp (Co),No,Click en box,No,No
-Coronavírus - SUS,No,Click en box,Si,No
-Coronavirus UY,Si,Click en box,Si,Si
-Covid-19 PY,No,Click en box,Si,Si
-COVID-19MX,Si,Click en box,Si,Si
-CUIDAR,Si,Asumido,Si,Si
-Dr. Sammy Bot!,No,Asumido,No,No
-Ecuador ASI,No,Click en box,No,Si
-EDUS,No,Asumido,Si,Si
-Perú en tus manos,Si,Click en box,Si,Si
+Coronavírus - SUS,No,Click en box,Yes,No
+Coronavirus UY,Yes,Click en box,Yes,Yes
+Covid-19 PY,No,Click en box,Yes,Yes
+COVID-19MX,Yes,Click en box,Yes,Yes
+CUIDAR,Yes,Assumed,Yes,Yes
+Dr. Sammy Bot!,No,Assumed,No,No
+Ecuador ASI,No,Click en box,No,Yes
+EDUS,No,Assumed,Yes,Yes
+Perú en tus manos,Yes,Click en box,Yes,Yes
 Protégete con salud,No,Click en box,No,No
-Salud en Cochabamba,Si,Click en box,No,No
+Salud en Cochabamba,Yes,Click en box,No,No

@@ -6,11 +6,11 @@ yes,no,no,private,Abroad,COVID-19MX,Mexico
 yes,no,no,private,Abroad,CUIDAR,Argentina
 yes,no,no,private,Abroad,Dr. Sammy Bot!,Bolivia
 yes,no,no,private,Abroad,Perú en tus manos,Perú
-yes,no,yes,n/a,No se especifica,Protégete con salud,Panamá
+yes,no,yes,n/a,Not specified,Protégete con salud,Panamá
 yes,no,yes,private,Local,Bolivia Segura,Bolivia
-yes,no,yes,publicos,Local,Covid-19 PY,Paraguay
-yes,no,yes,publicos,Local,Ecuador ASI,Ecuador
-yes,yes,no,n/a,No se especifica,Salud en Cochabamba,Bolivia
+yes,no,yes,public,Local,Covid-19 PY,Paraguay
+yes,no,yes,public,Local,Ecuador ASI,Ecuador
+yes,yes,no,n/a,Not specified,Salud en Cochabamba,Bolivia
 yes,yes,no,private,Abroad,CoronApp (Ch),Chile
 yes,yes,yes,n/a,Local,Coronavírus - SUS,Brasil
-yes,yes,yes,publicos,Local,Coronavirus UY,Uruguay
+yes,yes,yes,public,Local,Coronavirus UY,Uruguay
