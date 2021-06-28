@@ -1,16 +1,16 @@
-Does the application transfer data securely (HTTPS)?,Does the application inform about security measures?,Is the application code open?,Is the information stored on public or private servers?,Is the information stored on servers inside or outside the country?,app,Pais
-si,no,no,privados,En el país,EDUS,Costa Rica
-si,no,no,privados,Fuera del País,Alerta Guate,Guatemala
-si,no,no,privados,Fuera del País,CoronApp (Co),Colombia
-si,no,no,privados,Fuera del País,COVID-19MX,Mexico
-si,no,no,privados,Fuera del País,CUIDAR,Argentina
-si,no,no,privados,Fuera del País,Dr. Sammy Bot!,Bolivia
-si,no,no,privados,Fuera del País,Perú en tus manos,Perú
-si,no,si,ns/nc,No se especifica,Protégete con salud,Panamá
-si,no,si,privados,En el país,Bolivia Segura,Bolivia
-si,no,si,publicos,En el país,Covid-19 PY,Paraguay
-si,no,si,publicos,En el país,Ecuador ASI,Ecuador
-si,si,no,ns/nc,No se especifica,Salud en Cochabamba,Bolivia
-si,si,no,privados,Fuera del País,CoronApp (Ch),Chile
-si,si,si,ns/nc,En el país,Coronavírus - SUS,Brasil
-si,si,si,publicos,En el país,Coronavirus UY,Uruguay
+O aplicativo transfere dados de forma segura (HTTPS)?,O aplicativo informa sobre medidas de segurança?,O código do aplicativo é aberto?,As informações são armazenadas em servidores públicos ou privados?,As informações são armazenadas em servidores dentro ou fora do país?,app,Pais
+Sim,Não,Não,privados,No país,EDUS,Costa Rica
+Sim,Não,Não,privados,Fora do país,Alerta Guate,Guatemala
+Sim,Não,Não,privados,Fora do país,CoronApp (Co),Colombia
+Sim,Não,Não,privados,Fora do país,COVID-19MX,México
+Sim,Não,Não,privados,Fora do país,CUIDAR,Argentina
+Sim,Não,Não,privados,Fora do país,Dr. Sammy Bot!,Bolivia
+Sim,Não,Não,privados,Fora do país,Perú en tus manos,Perú
+Sim,Não,Sim,ns/nc,Não especificado,Protégete con salud,Panamá
+Sim,Não,Sim,privados,No país,Bolivia Segura,Bolivia
+Sim,Não,Sim,públicos,No país,Covid-19 PY,Paraguay
+Sim,Não,Sim,públicos,No país,Ecuador ASI,Ecuador
+Sim,Sim,Não,ns/nc,Não especificado,Salud en Cochabamba,Bolivia
+Sim,Sim,Não,privados,Fora do país,CoronApp (Ch),Chile
+Sim,Sim,Sim,ns/nc,No país,Coronavírus - SUS,Brasil
+Sim,Sim,Sim,públicos,No país,Coronavirus UY,Uruguay
