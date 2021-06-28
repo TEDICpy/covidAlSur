@@ -1,21 +1,21 @@
-app,Pais,Penetration of the initiative,Penetracion,Acceso,Poblacion
-Alerta Guate,Guatemala,"Según informaciones no oficiales la App fue **descargada más de 100,000** veces en Guatemala.
-**Fuente:** https://www.no-ficcion.com/project/empresas-ciberseguridad-app-covid-19-giammattei","0,000000005581737626","40,7",17915568
-Bolivia Segura,Bolivia,"Sitio Web: Según Google Trends, el mayor interés por el término ""Bolivia Segura"" se dio entre el 3 y el 9 de Mayo de 2020.
-Aplicación: Según Google Play Store hubo más de **50.000 descargas** a Septiembre 2020.","0,000000004283381311","44,2",11673021
-CoronApp (Ch),Chile,"Se registran más de **100.000 descargas** de la versión Android de la aplicación. App Store no publica la cantidad de descargas.
-Fuentes: GooglePlay y Asesoría Técnica Parlamentaria, 2020, https://obtienearchivo.bcn.cl/obtienearchivo?id=documentos/10221.1/79593/1/boletin_coronavirus_10.1_FINAL.pdf","0,000000005231164916",82,19116201
-CoronApp (Co),Colombia,"**11 millones** de descargas. **Fuente:** Presidencia de la República, 2020, https://id.presidencia.gov.co/Paginas/prensa/2020/Mas-de-11-3-millones-de-colombianos-usan-la-aplicacion-CoronApp-200731.aspx","0,0000002161826851","64,6",50882891
-Coronavírus - SUS,Brasil,"Según informaciones de la aplicación en Google Play Store, más de **1 millón** de personas han instalado la aplicación.","0,000000004704566912",79,212559417
-Coronavirus UY,Uruguay,"Según datos de octubre de 2020, la aplicación fue descargada por más de **616.000 personas**, de las cuales 365.000 activaron las alertas de exposición. **Fuente:** Ministerio de Industria, Energía y Minería, 2020. https://www.gub.uy/ministerio-industria-energia-mineria/comunicacion/noticias/aumento-uso-alertas-exposicion-aplicacion-coronavirus","0,0000001773309958",87,3473730
-Covid-19 PY,Paraguay,"Hombres: 2484
-Mujeres: 2989","0,0000000007010127391","53,7",7132538
-COVID-19MX,Mexico,Se registran más de **500.000 descargas** en la Google Play Store.,"0,000000003877990568","70,1",128932753
-CUIDAR,Argentina,"Más de 10 millones de descargas en Google Play. https://play.google.com/store/apps/details?id=ar.gob.coronavirus
-Cifra en App Store no disponible. https://apps.apple.com/ar/app/covid-19-ministerio-de-salud/id1503956284","0,0000002212596248","82,9",45195774
-Dr. Sammy Bot!,Bolivia,No hay información disponible. Según la información de https://www1.abi.bo/abi_/?i=452830 el Bot tiene la capacidad de atender a **600 pacientes** por día.,0,"44,2",11673021
-Ecuador ASI,Ecuador,"Android: alrededor de **500.000 usuarios** activos. IOS: alrededor de **8.600 usuarios activos**, según informaciones obtenidas de la Google Play Store y de la Apple Store","0,00000002833976476","59,2",17643054
-EDUS,Costa Rica,"**500.000 usuarios** según la Google Play Store. Según el EDUS, se han llenado 246.991 cuestionarios de riesgo de coronavirus.","0,00000009815241814","86,3",5094118
-Perú en tus manos,Perú,Más de **1 millón de descargas** en Google Play Store. La cifra en la App Store no está disponible.,"0,00000003025688855","64,8",33050325
-Protégete con salud,Panamá,"Más de **1000 descargas** según Google Play Store. Sin embargo, fuentes oficiales informaron más de 2.300 usuarios al 25 de junio de 2020. **Fuente:** AIG, 2020, https://innovacion.gob.pa/protegete-con-salud-alcanza-sus-primeras-ocho-semanas-de-funcionamiento/?csrt=12419235734676513539","0,0000000002317622249","63,6",4314767
-Salud en Cochabamba,Bolivia,"Según el Google Play Store tiene más de **10 mil descargas**. Por otro lado, según nota publicada en la prensa en el més de septiembre más de 61 mil personas accedieron a la autoevaluación sintomatológica a través de la aplicación. **Fuente:** Opinión, 2020, https://www.opinion.com.bo/articulo/cochabamba/app-salud-cochabamba-llega-mas-61-mil-personas-autoevaluacion-sintomas/20200901113955784920.html.","0,0000000008566762623","44,2",11673021
+app,País,Penetração da Iniciativa,Penetração,Acesso,População
+Alerta Guate,Guatemala,"Segundo informações não oficiais o aplicativo foi **baixado mais de 100,000** vezes na Guatemala.
+**Fonte:** https://www.no-ficcion.com/project/empresas-ciberseguridad-app-covid-19-giammattei","0,000000005581737626","40,7",17915568
+Bolivia Segura,Bolívia,"Site: Segundo Google Trends, o maior interesse pelo termo ""Bolivia Segura"" se deu entre os dias 3 e 9 de maio de 2020.
+Aplicativo: Segundo Google Play Store houve mais de **50.000 downloads** até setembro de 2020.","0,000000004283381311","44,2",11673021
+CoronApp (Ch),Chile,"Foram registrados mais de **100.000 downloads** da versão Android do aplicativo. A App Store não publica a quantidade de downloads.
+Fontes: GooglePlay y Asesoría Técnica Parlamentaria, 2020, https://obtienearchivo.bcn.cl/obtienearchivo?id=documentos/10221.1/79593/1/boletin_coronavirus_10.1_FINAL.pdf","0,000000005231164916",82,19116201
+CoronApp (Co),Colômbia,"**11 milhões** de downloads. **Fonte:** Presidencia de la República, 2020, https://id.presidencia.gov.co/Paginas/prensa/2020/Mas-de-11-3-millones-de-colombianos-usan-la-aplicacion-CoronApp-200731.aspx","0,0000002161826851","64,6",50882891
+Coronavírus - SUS,Brasil,"Segundo informações do aplicativo na Google Play Store, mais de **1 milhão** de pessoas instalaram o aplicativo.","0,000000004704566912",79,212559417
+Coronavirus UY,Uruguai,"Segundo dados de outubro de 2020, o aplicativo foi baixado por mais de **616.000 pessoas**, das quais 365.000 ativaram os alertas de exposição. **Fonte:** Ministerio de Industria, Energía y Minería, 2020. https://www.gub.uy/ministerio-industria-energia-mineria/comunicacion/noticias/aumento-uso-alertas-exposicion-aplicacion-coronavirus","0,0000001773309958",87,3473730
+Covid-19 PY,Paraguai,"Homens: 2484
+Mulheres: 2989","0,0000000007010127391","53,7",7132538
+COVID-19MX,México,Foram registrados mais de **500.000 downloads** na Google Play Store.,"0,000000003877990568","70,1",128932753
+CUIDAR,Argentina,"Mais de 10 milhões de downloads no Google Play. https://play.google.com/store/apps/details?id=ar.gob.coronavirus
+Os dados na App Store não estão disponíveis. https://apps.apple.com/ar/app/covid-19-ministerio-de-salud/id1503956284","0,0000002212596248","82,9",45195774
+Dr. Sammy Bot!,Bolívia,Não há informação disponível. Segundo a informação de https://www1.abi.bo/abi_/?i=452830 o Bot tem a capacidade de atender a **600 pacientes** por dia.,0,"44,2",11673021
+Ecuador ASI,Equador,"Android: em torno de **500.000 usuários** ativos. IOS: em torno de **8.600 usuários ativos**, segundo informações obtidas da Google Play Store e da Apple Store","0,00000002833976476","59,2",17643054
+EDUS,Costa Rica,"**500.000 usuários** segundo a Google Play Store. Segundo o EDUS, foram preenchidos 246.991 questionários de risco de coronavírus.","0,00000009815241814","86,3",5094118
+Perú en tus manos,Peru,Mais de **1 milhão de downloads** no Google Play Store. Os dados da App Store não estão disponíveis.,"0,00000003025688855","64,8",33050325
+Protégete con salud,Panamá,"Mais de **1000 downloads** segundo Google Play Store. No entanto, fontes oficiais apontaram mais de 2.300 usuários em 25 de junho de 2020. **Fonte:** AIG, 2020, https://innovacion.gob.pa/protegete-con-salud-alcanza-sus-primeras-ocho-semanas-de-funcionamiento/?csrt=12419235734676513539","0,0000000002317622249","63,6",4314767
+Salud en Cochabamba,Bolívia,"Segundo a Google Play Store houve mais de **10 mil downloads**. Por outro lado, de acordo com nota publicada na imprensa no mês de setembro mais de 61 mil pessoas tiveram acesso à autoavaliação sintomatológica por meio do aplicativo. **Fonte:** Opinión, 2020, https://www.opinion.com.bo/articulo/cochabamba/app-salud-cochabamba-llega-mas-61-mil-personas-autoevaluacion-sintomas/20200901113955784920.html.","0,0000000008566762623","44,2",11673021
