@@ -729,11 +729,6 @@ function beeSwarmRecoleccion(datos, cualGrafico){ // beeswarmAcceso
         var axis = main.append("g").attr("class","axis")
             .style("transform", isMobile?`translateX(${width*0.1}px`:`translateY(${height*0.95}px`);
 
-         
-
-                                console.log(rangosAxis);
-
-
             axis.selectAll("rect")
                 .data(clases.range())
                 .join("rect")
