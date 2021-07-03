@@ -16,6 +16,21 @@ window.textosLib.pt = {
     "shortMonths": ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
   },
 
+  // FALTA TRADUCIR ESTOS 
+
+  rango1 : ["baixo", "medio", "alto"], // translate this in the css classes too!
+  rango2 : ["poucos", "alguns", "muitos"], // translate this in the css classes too!
+  rango3 : ["Sim", "Não", "Clique na caixa", "Asumido"],
+
+  opciones : ["Sim", "Não", "ns/nc", "Não especificado", "públicos", "No país", "privados", "Fora do país"],
+
+  reco : "Coleção de dados",
+  acceso: "Acesso à Internet",
+  penet: "Penetração",
+  
+  // FALTA TRADUCIR ESTOS ^^^^^^
+
+
   "grafico1.title": "Acesso à internet e população",
   "grafico1.description": "Se comparamos os países por população (diâmetro do círculo) e por acesso à internet (cor e posição) vemos que uma parte considerável dos habitantes da América Latina se encontra na faixa média/alta de acesso. No entanto, alguns países se encontram relegados ao acesso baixo",
 

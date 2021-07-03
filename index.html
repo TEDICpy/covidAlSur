@@ -14,7 +14,6 @@
       <script src="es/textos.js"></script>
       <script src="en/textos.js"></script>
       <script src="pt/textos.js"></script>
-      <script src="controller.js"></script>
   
 </head>
 
@@ -90,33 +89,33 @@ svg .axis text{
     font-size: 13px;
 }
 
-svg .bajo{
+svg .bajo, svg .low, svg .baixo{
     stroke: #ff5d12;
     fill:#ff5d1260
 }
 
-svg .medio{
+svg .medio, svg .medium, svg .medio{
     stroke: #6b9b2a;
     fill:#6b9b2a60
 }
 
-svg .alto{
+svg .alto, svg .high, svg .alto{
     stroke: #069799;
     fill:#06979960
 }
 
 
-svg .muchos{
+svg .muchos, svg .plenty,  svg .muitos{
     stroke: #ff5d12;
     fill:#ff5d1260
 }
 
-svg .algunos{
+svg .algunos, svg .some, svg .alguns{
     stroke: #6b9b2a;
     fill:#6b9b2a60
 }
 
-svg .pocos{
+svg .pocos, svg .few, svg .poucos{
     stroke: #069799;
     fill:#06979960
 }
@@ -128,17 +127,17 @@ svg .cell{
     stroke: #f1f1f1
 }
 
-span.bajo{
+span.bajo, span.low, span.baixo{
     background-color: #ff5d12;
     font-weight: 700;
 }
 
-span.medio{
+span.medio, span.medium{
     background-color: #6b9b2a;
     font-weight: 700;
 }
 
-span.alto{
+span.alto, span.high{
     background-color: #069799;
     font-weight: 700;
 }
@@ -335,6 +334,7 @@ for (const key in textos) {
 }
 
 </script>
+<script src="controller.js"></script>
 
 </body>
 </html>

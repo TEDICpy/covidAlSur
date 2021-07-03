@@ -41,8 +41,6 @@ window.controller = (files) => {
 
     // **** END SCROLLY *******
 
-
-       
         
 
 var altoMaximo = 1.5; // cuantas veces el ancho permitimos que sea el alto maximo
@@ -127,9 +125,8 @@ function beeSwarmAcceso(datos, cualGrafico){ // beeswarm
 
                 var clasesAcceso = d3.scaleQuantize()
                 .domain(d3.extent(datos, d=> d.Acceso))
-                .range(["bajo", "medio", "alto"])
+                .range(window.textos.rango1)
                 ;
-
 
         var max_pop = d3.max(datos, d => d.Poblacion)
         
@@ -218,7 +215,7 @@ function beeSwarmAcceso(datos, cualGrafico){ // beeswarm
     if(!isMobile){
     axis.append("text")
             .attr("text-anchor",isMobile?"end":"middle")
-               .text("Acceso a internet")
+               .text(window.textos.acceso)
                .attr("dy",-5)
             .attr("x",isMobile?0:width/2)
             .style("opacity",0.7)
@@ -254,9 +251,8 @@ function beeSwarmPenetracion(datos, cualGrafico){ // beeswarmPen
 
                 var clasesAcceso = d3.scaleQuantize()
                 .domain(d3.extent(datos, d=> d.Penetracion))
-                .range(["bajo", "medio", "alto"])
+                .range(window.textos.rango1)
                 ;
-
 
         var max_pop = d3.max(datos, d => d.Poblacion)
 
@@ -309,14 +305,6 @@ function beeSwarmPenetracion(datos, cualGrafico){ // beeswarmPen
             .call(wrap,isMobile?60:80)
             ;
 
-            /* if(!isMobile){ circlesGroup.append("text")
-                .attr("class","paisSubLabel")
-                .text(d=>d3.format(".0%")(d.Penetracion*1000000))
-                .attr("dy",12)
-                .attr("font-size",11)
-                .style("fill", "black");
-
-            } */
             
         var axis = main.append("g").attr("class","axis")
             .style("transform", isMobile?`translateX(${width*0.1}px`:`translateY(${height*0.95}px`);
@@ -346,7 +334,7 @@ function beeSwarmPenetracion(datos, cualGrafico){ // beeswarmPen
             if(!isMobile){
             axis.append("text")
                     .attr("text-anchor",isMobile?"end":"middle")
-                    .text("Penetración")
+                    .text(window.textos.penet)
                     .attr("dy",-5)
                     .attr("x",isMobile?0:width/2)
                     .style("opacity",0.7)
@@ -375,13 +363,12 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
                 .key(function(d) { return d[4]; })
                 .entries(csvArray);
 
-                console.log(csvArrayNested)
 
         /// aca actualiza los textos
 
+
             d3.select("#scrolly1").selectAll(".step span").each(function(d,i)
                 {
-                    console.log(i)
                      if (i==0) d3.select(this).html(csvArrayNested[0].values[0].values[0].values[0].values[1].values.map(d=>` ${d[5]} (${d[6]})`))
                      if (i==1) d3.select(this).html(csvArrayNested[0].values[1].values[1].values[1].values[0].values.map(d=>` ${d[5]} (${d[6]})`))
                     // if (i==2) d3.select(this).html(csvArrayNested[0].values[1].values[1].values[1].values[0].values.map(d=>` ${d[5]} (${d[6]})`))
@@ -425,7 +412,7 @@ function sankeySeguridad(csv, cualGrafico){ // sankey
 
                
 
-                var opciones = ["si", "no", "ns/nc", "No se especifica.", "publicos", "En el país", "privados", "Fuera del País"];
+                var opciones = window.textos.opciones;
 
                 
                 var color = d3.scaleOrdinal().domain(opciones).range(["#ff5d1280","#6b9b2a80","#06979980"]);
@@ -646,7 +633,7 @@ function beeSwarmRecoleccion(datos, cualGrafico){ // beeswarmAcceso
 
             var clases = d3.scaleQuantize()
             .domain(d3.extent(datos, d=> d.personales))
-            .range(["pocos", "algunos", "muchos"])
+            .range(window.textos.rango2)
             ;
 
     
@@ -752,7 +739,7 @@ function beeSwarmRecoleccion(datos, cualGrafico){ // beeswarmAcceso
     if(!isMobile){
     axis.append("text")
             .attr("text-anchor",isMobile?"end":"middle")
-               .text("Recolección de datos")
+               .text(window.textos.reco)
                .attr("dy",-5)
             .attr("x",isMobile?0:width/2)
             .style("opacity",0.7)
@@ -783,7 +770,7 @@ function vizConsent(datos, cualGrafico){
 
             
             var color = d3.scaleOrdinal()
-                           .domain(["Si", "No", "Click en box", "Asumido"])
+                           .domain(window.textos.rango3)
                            .range(["#6b9b2a","#ff5d12","#6b9b2a","#ff5d12"]);
 
             var rows = main.selectAll("g")
@@ -830,9 +817,13 @@ function vizConsent(datos, cualGrafico){
 //***************ACA SE MODIFICAN EN CADA STEP
         
         
- 
+
 
 function scrollyTelling(containerNumber,step,entra){
+
+    var opc = window.textos.opciones;
+
+
 	if(containerNumber == 1){  //GRAFICO PRIMER SCROLLY
 		switch (step) {
 
@@ -843,9 +834,9 @@ function scrollyTelling(containerNumber,step,entra){
             case 1: // seguridad
                     d3.selectAll(".link").transition().duration(400)
                     .attr("stroke-opacity",d=>{
-                        if (d.source.layer == 1 && d.target.group == "no" && d.source.group == "no") return 1;
-                        if (d.source.layer == 2 && d.target.group == "privados" && d.source.group == "no") return 1;
-                        if (d.source.layer == 3 && d.target.group == "Fuera del País" && d.source.group == "privados") return 1;
+                        if (d.source.layer == 1 && d.target.group == opc[1] && d.source.group == opc[1]) return 1;
+                        if (d.source.layer == 2 && d.target.group == opc[6] && d.source.group == opc[1]) return 1;
+                        if (d.source.layer == 3 && d.target.group == opc[7] && d.source.group == opc[6]) return 1;
                         return 0.2;
                     });
 			break;
@@ -853,9 +844,9 @@ function scrollyTelling(containerNumber,step,entra){
             case 2: // seguridad
                     d3.selectAll(".link").transition().duration(400)
                     .attr("stroke-opacity",d=>{
-                        if (d.source.layer == 1 && d.target.group == "si" && d.source.group == "si") return 1;
-                        if (d.source.layer == 2 && d.target.group == "publicos" && d.source.group == "si") return 1;
-                        if (d.source.layer == 3 && d.target.group == "En el país" && d.source.group == "publicos") return 1;
+                        if (d.source.layer == 1 && d.target.group == opc[0] && d.source.group == opc[0]) return 1;
+                        if (d.source.layer == 2 && d.target.group == opc[4] && d.source.group == opc[0]) return 1;
+                        if (d.source.layer == 3 && d.target.group == opc[5] && d.source.group == opc[4]) return 1;
                         return 0.2;
                     });
 			break;
@@ -863,12 +854,12 @@ function scrollyTelling(containerNumber,step,entra){
             case 3: // seguridad
                     d3.selectAll(".link").transition().duration(400)
                     .attr("stroke-opacity",d=>{
-                        if (d.source.layer == 1 && d.target.group == "no" && d.source.group == "no") return 0.2;
-                        if (d.source.layer == 2 && d.target.group == "privados" && d.source.group == "no") return 0.2;
-                        if (d.source.layer == 3 && d.target.group == "Fuera del País" && d.source.group == "privados") return 0.2;
-                        if (d.source.layer == 1 && d.target.group == "si" && d.source.group == "si") return 0.2;
-                        if (d.source.layer == 2 && d.target.group == "publicos" && d.source.group == "si") return 0.2;
-                        if (d.source.layer == 3 && d.target.group == "En el país" && d.source.group == "publicos") return 0.2;
+                        if (d.source.layer == 1 && d.target.group == opc[1] && d.source.group == opc[1]) return 0.2;
+                        if (d.source.layer == 2 && d.target.group == opc[6] && d.source.group == opc[1]) return 0.2;
+                        if (d.source.layer == 3 && d.target.group == opc[7] && d.source.group == opc[6]) return 0.2;
+                        if (d.source.layer == 1 && d.target.group == opc[0] && d.source.group == opc[0]) return 0.2;
+                        if (d.source.layer == 2 && d.target.group == opc[4] && d.source.group == opc[0]) return 0.2;
+                        if (d.source.layer == 3 && d.target.group == opc[5] && d.source.group == opc[4]) return 0.2;
                         if (d.source.layer != 0 ) return 1;
                         return 0.2;
                     });
@@ -1022,7 +1013,6 @@ function legendCircle(context){
                     while (word = words.pop()) {
                         line.push(word);
                         tspan.text(line.join(" "));
-                        console.log(line);
 
                             if (tspan.node().getComputedTextLength() > width && line.length>1) {
                                 line.pop();

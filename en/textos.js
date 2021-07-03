@@ -16,6 +16,17 @@ window.textosLib.en = {
     "shortMonths": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   },
 
+  rango1 : ["low", "medium", "high"], // translate this in the css classes too!
+  rango2 : ["few", "some", "plenty"], // translate this in the css classes too!
+  rango3 : ["Yes", "No", "Click in box", "Assumed"],
+
+  opciones : ["yes", "no", "n/a", "Not especified", "public", "In the country", "private", "Abroad"],
+
+  reco : "Data reccolection",
+  acceso: "Internet access",
+  penet: "Penetration",
+
+
   "grafico1.title": "Internet access and country population",
   "grafico1.description": "If we compare the countries by population (diameter of the circle) and by internet access (color and position) we see that a considerable part of the inhabitants of Latin America is in the medium/high range of access. However, some countries are relegated, presenting low access",
 

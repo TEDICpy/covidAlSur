@@ -1,4 +1,4 @@
-Does the application transfer data securely (HTTPS)?,Does the application inform about security measures?,Is the application code open?,Is the information stored on public or private servers?,Is the information stored on servers inside or outside the country?,app,Pais
+"¿La aplicación transfiere datos de forma segura (HTTPS)?","¿La aplicación informa sobre medidas de seguridad?","¿El código de la aplicación es abierto?","¿La infomación se almacena en servidores públicos o privados?","¿La información se almacen en servidores dentro o fuera del país?",app,Pais
 si,no,no,privados,En el país,EDUS,Costa Rica
 si,no,no,privados,Fuera del País,Alerta Guate,Guatemala
 si,no,no,privados,Fuera del País,CoronApp (Co),Colombia

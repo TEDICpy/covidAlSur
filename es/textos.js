@@ -15,6 +15,15 @@ window.textosLib.es = {
     "months": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
     "shortMonths": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
   },
+  rango1 : ["bajo", "medio", "alto"], // translate this in the css classes too!
+  rango2 : ["pocos", "algunos", "muchos"], // translate this in the css classes too!
+  rango3 : ["Si", "No", "Click en box", "Asumido"],
+
+  opciones : ["si", "no", "ns/nc", "No se especifica", "publicos", "En el país", "privados", "Fuera del País"],
+
+  reco : "Recolección de datos",
+  acceso: "Acceso a internet",
+  penet: "Penetración",
 
   "grafico1.title": "Acceso a Internet y población",
   "grafico1.description": "Si comparamos los países por población (diámetro del círculo) y por acceso a Internet (color y posición) vemos que una parte considerable de los habitantes de Latinoamérica se encuentra en el rango medio/alto de acceso. Sin embargo, algunos países se encuentran relegados con acceso bajo.",
