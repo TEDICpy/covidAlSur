@@ -17,12 +17,12 @@ window.textosLib.es = {
   },
   rango1 : ["bajo", "medio", "alto"], // translate this in the css classes too!
   rango2 : ["pocos", "algunos", "muchos"], // translate this in the css classes too!
-  rango3 : ["Si", "No", "Click en box", "Asumido"],
+  rango3 : ["Si", "No", "Clic en box", "Asumido"],
 
-  opciones : ["si", "no", "ns/nc", "No se especifica", "publicos", "En el país", "privados", "Fuera del País"],
+  opciones : ["si", "no", "ns/nc", "No se especifica", "públicos", "En el país", "privados", "Fuera del país"],
 
   reco : "Recolección de datos",
-  acceso: "Acceso a internet",
+  acceso: "Acceso a Internet",
   penet: "Penetración",
 
   "grafico1.title": "Acceso a Internet y población",
@@ -40,9 +40,9 @@ window.textosLib.es = {
 
   "grafico4.title": "¿Qué datos de usario recolectan?",
   "grafico4.description": "Agrupando los datos que recolectan en 3 grandes grupos, podemos analizar como se posicionan las diferentes iniciativas respecto a la recolección de los mismos:",
-  "grafico4.step0": "En cuanto a <b>datos personales</b> (edad, documento, género), las aplicaciones se ubican en el siguiente espectro en cuanto a la cantidad de datos que recolectan",
-  "grafico4.step1": "En cuanto a <b>datos de ubicación</b> (dirección, ubicación), las aplicaciones se ubican en el siguiente espectro en cuanto a la cantidad de datos que recolectan",
-  "grafico4.step2": "En cuanto a <b>datos sensibles</b> (fotografía, datos de salud), las aplicaciones se ubican en el siguiente espectro en cuanto a la cantidad de datos que recolectan",
+  "grafico4.step0": "Sobre <b>datos personales</b> (edad, documento, género), las aplicaciones se ubican en el siguiente espectro en cuanto a la cantidad de datos que recolectan",
+  "grafico4.step1": "Sobre a <b>datos de ubicación</b> (dirección, ubicación), las aplicaciones se ubican en el siguiente espectro en cuanto a la cantidad de datos que recolectan",
+  "grafico4.step2": "Sobre a <b>datos sensibles</b> (fotografía, datos de salud), las aplicaciones se ubican en el siguiente espectro en cuanto a la cantidad de datos que recolectan",
 
 
   "grafico5.title": "La importancia del consentimiento en los datos recogidos por las iniciativas",
