@@ -16,7 +16,7 @@ window.textosLib.pt = {
     "shortMonths": ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
   },
 
-  // FALTA TRADUCIR ESTOS 
+  // FALTA TRADUCIR ESTOS
 
   rango1 : ["baixo", "medio", "alto"], // translate this in the css classes too!
   rango2 : ["poucos", "alguns", "muitos"], // translate this in the css classes too!
@@ -27,7 +27,7 @@ window.textosLib.pt = {
   reco : "Coleção de dados",
   acceso: "Acesso à Internet",
   penet: "Penetração",
-  
+
   // FALTA TRADUCIR ESTOS ^^^^^^
 
 
@@ -55,7 +55,9 @@ window.textosLib.pt = {
   "grafico5.step0": 'A coleta/processamento de dados é precedida de um ato claro afirmativo que estabeleça uma indicação livre, específica, informada e sem ambiguidades de concordância do titular dos dados quanto à coleta e/ou processamento de seus dados pessoais?',
   "grafico5.step1": 'Como o consentimento é obtido?',
   "grafico5.step2": 'A iniciativa permite que os usuários tenham controle efetivo sobre os usos?',
-  "grafico5.step3": 'A parte interessada pode retirar seu consentimento à iniciativa a qualquer momento?'
+  "grafico5.step3": 'A parte interessada pode retirar seu consentimento à iniciativa a qualquer momento?',
 
+  "footer.by": "Visualizações por:",
+  "footer.logo": "Logo de Tedic"
 
 }

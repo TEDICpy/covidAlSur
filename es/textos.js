@@ -15,7 +15,7 @@ window.textosLib.es = {
     "months": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
     "shortMonths": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
   },
-  
+
   rango1: ["bajo", "medio", "alto"], // translate this in the css classes too!
   rango2: ["pocos", "algunos", "muchos"], // translate this in the css classes too!
   rango3: ["Si", "No", "Clic en box", "Asumido"],
@@ -53,6 +53,7 @@ window.textosLib.es = {
   "grafico5.step2": '¿La iniciativa permite que las y los usuarias tengan control efectivo sobre los usos?',
   "grafico5.step3": '¿El/la interesada puede retirar su consentimiento a la iniciativa en cualquier momento?',
 
-  footer: "Sitio desarrollado por Tedic"
+  "footer.by": "Visualizaciones por:",
+  "footer.logo": "Logo de Tedic"
 
 }

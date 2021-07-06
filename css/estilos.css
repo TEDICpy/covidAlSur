@@ -1,0 +1,131 @@
+body{
+  font-family: sans-serif;
+    padding-top: 10%;
+  background-color: #fff8fc;
+}
+section {
+  max-width: 1000px;
+  margin:auto;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+}
+
+figure.contenedorGrafico  {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  padding: 10px;
+}
+
+#contenedorGrafico.sticky,.contenedorGrafico.sticky{
+    background-color: #fff;
+}
+
+svg .paisLabel, svg .paisSubLabel{
+    text-anchor: middle;
+    font-family: sans-serif;
+}
+
+svg .paisSubLabel{
+    opacity: 0.7;
+}
+
+figure p{
+    max-width: 700px;
+    margin: auto;
+    text-align: left;
+}
+
+svg circle{
+    stroke-width: 0px;
+}
+
+svg .legend circle{
+    stroke-width: 2px;
+    stroke: #f1f1f1;
+    fill:#ddd;
+}
+
+svg .axis rect{
+    stroke-width: 0px;
+}
+
+svg .axis text{
+    font-size: 13px;
+}
+
+svg .bajo, svg .low, svg .baixo{
+    stroke: #ff5d12;
+    fill:#ff5d1260
+}
+
+svg .medio, svg .medium, svg .medio{
+    stroke: #6b9b2a;
+    fill:#6b9b2a60
+}
+
+svg .alto, svg .high, svg .alto{
+    stroke: #069799;
+    fill:#06979960
+}
+
+svg .muchos, svg .plenty,  svg .muitos{
+    stroke: #ff5d12;
+    fill:#ff5d1260
+}
+
+svg .algunos, svg .some, svg .alguns{
+    stroke: #6b9b2a;
+    fill:#6b9b2a60
+}
+
+svg .pocos, svg .few, svg .poucos{
+    stroke: #069799;
+    fill:#06979960
+}
+
+svg .cell{
+    fill-opacity: 0;
+    stroke-width: 1px;
+    stroke: #f1f1f1
+}
+
+span.bajo, span.low, span.baixo{
+    background-color: #ff5d12;
+    font-weight: 700;
+}
+
+span.medio, span.medium{
+    background-color: #6b9b2a;
+    font-weight: 700;
+}
+
+span.alto, span.high{
+    background-color: #069799;
+    font-weight: 700;
+}
+
+.column-label{
+    text-anchor:middle;
+}
+
+.column-label:first-child{
+    text-anchor:start;
+}
+
+.column-label:last-child{
+    text-anchor:end;
+}
+
+@media only screen and (min-width: 768px) {
+    .column-label:first-child,.column-label:last-child{
+        text-anchor:middle;
+    }
+}

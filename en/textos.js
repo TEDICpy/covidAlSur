@@ -52,6 +52,9 @@ window.textosLib.en = {
   "grafico5.step0": 'Is the data collection/processing preceded by a clear affirmative act establishing a freely given, specific, informed and unambiguous indication of agreement by the data subject regarding the collection and/or processing of personal data related to her or him?',
   "grafico5.step1": 'How is consent obtained?',
   "grafico5.step2": 'Does the initiative allow users to have effective control over the use of their data?',
-  "grafico5.step3": 'Can the interested party withdraw their consent to the initiative at any time?'
+  "grafico5.step3": 'Can the interested party withdraw their consent to the initiative at any time?',
+
+  "footer.by": "Viz by:",
+  "footer.logo": "Tedic\'s logo"
 
 }

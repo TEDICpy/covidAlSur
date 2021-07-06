@@ -2,165 +2,29 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 
+  <script src="https://unpkg.com/d3@5.9.0/dist/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.js"></script>
+  <script src="https://unpkg.com/enter-view"></script>
+  <script src="https://unpkg.com/d3-sankey@0"></script>
 
-<script src="https://unpkg.com/d3@5.9.0/dist/d3.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.js"></script>
-      <script src="https://unpkg.com/enter-view"></script>
-      <script src="https://unpkg.com/d3-sankey@0"></script>
-
-      <link rel="stylesheet" href="scrolly.css">
-      <script src="es/textos.js"></script>
-      <script src="en/textos.js"></script>
-      <script src="pt/textos.js"></script>
-
+  <link rel="stylesheet" href="css/scrolly.css">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="es/textos.js"></script>
+  <script src="en/textos.js"></script>
+  <script src="pt/textos.js"></script>
 </head>
 
 <body>
-      <script>
+  <script>
     window.textos = window.textosLib[ location.search.split('=')[1] ];
     d3.timeFormatDefaultLocale(textos.d3);
     d3.formatDefaultLocale(textos.d3);
 
     var anchoDiv = document.getElementsByTagName("body")[0].clientWidth;
     var isMobile = anchoDiv < 768 ? 1 : 0;
-
-      </script>
-
-<style>
-body{
-    font-family: sans-serif;
-        padding-top: 10%;
-    background-color: #fff8fc;
-}
-section {
-    max-width: 1000px;
-    margin:auto;
-}
-figure{
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-}
-
-figure.contenedorGrafico  {
-    padding: 10px;
-}
-
-#contenedorGrafico.sticky,.contenedorGrafico.sticky{
-    background-color: #fff;
-
-}
-
-svg .paisLabel, svg .paisSubLabel{
-    text-anchor: middle;
-    font-family: sans-serif;
-}
-
-svg .paisSubLabel{
-    opacity: 0.7;
-}
-
-figure p{
-    max-width: 700px;
-    margin: auto;
-    text-align: left;
-}
-
-svg circle{
-    stroke-width: 0px;
-}
-
-svg .legend circle{
-    stroke-width: 2px;
-    stroke: #f1f1f1;
-    fill:#ddd;
-}
-
-svg .axis rect{
-    stroke-width: 0px;
-}
-
-svg .axis text{
-    font-size: 13px;
-}
-
-svg .bajo, svg .low, svg .baixo{
-    stroke: #ff5d12;
-    fill:#ff5d1260
-}
-
-svg .medio, svg .medium, svg .medio{
-    stroke: #6b9b2a;
-    fill:#6b9b2a60
-}
-
-svg .alto, svg .high, svg .alto{
-    stroke: #069799;
-    fill:#06979960
-}
-
-
-svg .muchos, svg .plenty,  svg .muitos{
-    stroke: #ff5d12;
-    fill:#ff5d1260
-}
-
-svg .algunos, svg .some, svg .alguns{
-    stroke: #6b9b2a;
-    fill:#6b9b2a60
-}
-
-svg .pocos, svg .few, svg .poucos{
-    stroke: #069799;
-    fill:#06979960
-}
-
-
-svg .cell{
-    fill-opacity: 0;
-    stroke-width: 1px;
-    stroke: #f1f1f1
-}
-
-span.bajo, span.low, span.baixo{
-    background-color: #ff5d12;
-    font-weight: 700;
-}
-
-span.medio, span.medium{
-    background-color: #6b9b2a;
-    font-weight: 700;
-}
-
-span.alto, span.high{
-    background-color: #069799;
-    font-weight: 700;
-}
-
-.column-label{
-    text-anchor:middle;
-
-}
-
-.column-label:first-child{
-    text-anchor:start;
-
-}
-
-.column-label:last-child{
-    text-anchor:end;
-
-}
-
-@media only screen and (min-width: 768px) {
-    .column-label:first-child,.column-label:last-child{
-        text-anchor:middle;
-
-}
-
-}
-
-</style>
+  </script>
 
 <section id='NOscrolly1'>
     <div class='NOscrolly'>
@@ -168,11 +32,8 @@ span.alto, span.high{
         <figure id="grafico1" class='sticky contenedorGrafico' >
             <h2 id="grafico1.title"></h2>
             <p id="grafico1.description"></p>
-
             <div class="grafico"></div>
-
         </figure>
-
 	</div>
 </section>
 
@@ -184,7 +45,6 @@ span.alto, span.high{
             <p id="grafico2.description"></p>
             <div class="grafico"></div>
         </figure>
-
 	</div>
 </section>
 
@@ -205,20 +65,15 @@ span.alto, span.high{
 
             <div class='step' data-index='1'>
                 <p id="grafico3.step1"></p>
-
             </div>
-
 
             <div class='step' data-index='2'>
                 <p id="grafico3.step2"></p>
-
             </div>
 
             <div class='step' data-index='3'>
                 <p id="grafico3.step3"></p>
-
             </div>
-
         </article>
 
 	</div>
@@ -243,13 +98,11 @@ span.alto, span.high{
                 <p id="grafico4.step1"></p>
             </div>
 
-
             <div class='step' data-index='2'>
                 <p id="grafico4.step2"></p>
             </div>
 
         </article>
-
 	</div>
 </section>
 
@@ -284,9 +137,14 @@ span.alto, span.high{
 	</div>
 </section>
 
-<section id='footer'>
-  <div>
-    <p id="footer"></p>
+<section id="footer">
+  <div class="footer">
+    <p id="footer.by"></p>
+    <figure >
+      <a href="https://www.tedic.org" target="_blank">
+        <img src="img/Tedic_logo_negro_300x300.jpg" alt="footer.logo" class="logo" />
+      </a>
+    </figure>
   </div>
 </section>
 
